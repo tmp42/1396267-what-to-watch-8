@@ -1,9 +1,17 @@
-function ReviewsScreen(): JSX.Element {
+import {Films} from '../../types/films';
+
+type ReviewsScreenProps = {
+  reviewsFilm: Films;
+}
+
+function ReviewsScreen(props: ReviewsScreenProps): JSX.Element {
+  const {reviewsFilm} = props;
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={reviewsFilm[0].previewImage} alt={reviewsFilm[0].name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
