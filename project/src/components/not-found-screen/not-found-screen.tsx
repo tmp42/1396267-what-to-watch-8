@@ -4,9 +4,9 @@ function NotFoundScreen(): JSX.Element {
   return (
     <section className="game">
       <header className="game__header">
-        <Link className="logo__link" to="/">
+        <Link className="" to="/">
           <span className="visually-hidden">Вернуться на главную</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию"/>
+          <img className="game__logo" src="img/404.png" alt="Страница не найдена"/>
         </Link>
 
         <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">

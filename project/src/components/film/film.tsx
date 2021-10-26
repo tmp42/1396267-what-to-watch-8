@@ -1,19 +1,20 @@
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
 
 type AboutFilmProps = {
-  AboutFilm: Films;
+  aboutFilm: Films[];
 }
 
-function Film(props: AboutFilmProps): JSX.Element {
-  const {AboutFilm} = props;
+function Film({aboutFilm}: AboutFilmProps): JSX.Element {
+  const id = parseInt(useParams<{ id: string }>().id, 10);
+  const film = aboutFilm.find((x) => x.id === id) as Films;
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={AboutFilm[0].backgroundImage} alt={AboutFilm[0].name}/>
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -41,10 +42,10 @@ function Film(props: AboutFilmProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{AboutFilm[0].name}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{AboutFilm[0].genre}</span>
-                <span className="film-card__year">{AboutFilm[0].released}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -60,7 +61,7 @@ function Film(props: AboutFilmProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link className="btn film-card__button"to={`/films/${film.id}/review`}>Add review</Link>
               </div>
             </div>
           </div>
@@ -69,7 +70,7 @@ function Film(props: AboutFilmProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={AboutFilm[0].previewImage} alt={AboutFilm[0].name} width="218" height="327"/>
+              <img src={film.previewImage} alt={film.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
@@ -88,19 +89,19 @@ function Film(props: AboutFilmProps): JSX.Element {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">{AboutFilm[0].rating}</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{AboutFilm[0].scoresCount} ratings</span>
+                  <span className="film-rating__count">{film.scoresCount} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
-                {AboutFilm[0].description}
-                <p className="film-card__director"><strong>Director: {AboutFilm[0].director}</strong></p>
+                {film.description}
+                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
                 <p className="film-card__starring">
-                  <strong>Starring: {AboutFilm[0].starring}</strong>
+                  <strong>Starring: {film.starring}</strong>
                 </p>
               </div>
             </div>

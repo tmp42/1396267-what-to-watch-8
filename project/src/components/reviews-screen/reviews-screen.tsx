@@ -1,18 +1,21 @@
 import {Films} from '../../types/films';
 import AddReview from '../add-review/add-review';
+import {useParams} from 'react-router-dom';
 
 type ReviewsScreenProps = {
-  reviewsFilm: Films;
+  reviewsFilm: Films[];
 }
 
-function ReviewsScreen(props: ReviewsScreenProps): JSX.Element {
-  const {reviewsFilm} = props;
+function ReviewsScreen({reviewsFilm}: ReviewsScreenProps): JSX.Element {
+
+  const id = parseInt(useParams<{ id: string }>().id, 10);
+  const film = reviewsFilm.find((x) => x.id === id) as Films;
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={reviewsFilm[0].previewImage} alt={reviewsFilm[0].name}/>
+          <img src={film.backgroundImage} alt={film.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -50,7 +53,7 @@ function ReviewsScreen(props: ReviewsScreenProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+          <img src={film.previewImage} alt={film.name} width="218" height="327"/>
         </div>
       </div>
       <AddReview/>

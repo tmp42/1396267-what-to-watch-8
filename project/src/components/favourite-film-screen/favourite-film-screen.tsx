@@ -3,7 +3,7 @@ import FilmList from '../film-list/film-list';
 import {Link} from 'react-router-dom';
 
 type FavouriteFilmProps = {
-  favouriteFilm: Films;
+  favouriteFilm: Films[];
 }
 
 function FavouriteFilmScreen(films: FavouriteFilmProps): JSX.Element {
@@ -39,7 +39,7 @@ function FavouriteFilmScreen(films: FavouriteFilmProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {<FilmList films={favouriteMovies}/>}
+          <FilmList films={favouriteMovies}/>
         </div>
       </section>
 

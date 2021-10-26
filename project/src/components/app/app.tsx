@@ -11,7 +11,7 @@ import PrivateRoute from '../private-route/private-route';
 import FavouriteFilmScreen from '../favourite-film-screen/favourite-film-screen';
 
 type AppProps = {
-  films: Films;
+  films: Films[];
 }
 
 function App({films}: AppProps): JSX.Element {
@@ -32,7 +32,7 @@ function App({films}: AppProps): JSX.Element {
           <FavouriteFilmScreen favouriteFilm={films}/>
         </Route>
         <Route exact path={AppRoute.Film}>
-          <Film AboutFilm={films}/>
+          <Film aboutFilm={films}/>
         </Route>
         <Route exact path={AppRoute.AddReview}>
           <AddReview reviewsFilm={films}/>
