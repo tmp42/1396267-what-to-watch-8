@@ -1,10 +1,11 @@
+import {Link} from 'react-router-dom';
+
 function PlayerScreen(): JSX.Element {
 
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
-
-      <button type="button" className="player__exit">Exit</button>
+      <Link className="player__exit" to="/">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

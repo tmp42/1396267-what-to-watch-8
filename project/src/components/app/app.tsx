@@ -1,5 +1,6 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {Films} from '../../types/films';
 import MainContent from '../main-content/main-content';
 import Film from '../film/film';
 import SignIn from '../login-screen/login-screen';
@@ -9,18 +10,16 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import FavouriteFilmScreen from '../favourite-film-screen/favourite-film-screen';
 
-type MainFilmProps = {
-  genre: string;
-  release: number;
-  promo: string;
+type AppProps = {
+  films: Films[];
 }
 
-function App({genre, release, promo}: MainFilmProps): JSX.Element {
+function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MainContent}>
-          <MainContent genre={genre} release={release} promo={promo}/>);
+          <MainContent films={films}/>);
         </Route>
         <PrivateRoute
           exact
@@ -30,13 +29,13 @@ function App({genre, release, promo}: MainFilmProps): JSX.Element {
         >
         </PrivateRoute>
         <Route exact path={AppRoute.MyList}>
-          <FavouriteFilmScreen/>
+          <FavouriteFilmScreen favouriteFilm={films}/>
         </Route>
         <Route exact path={AppRoute.Film}>
-          <Film/>
+          <Film aboutFilm={films}/>
         </Route>
         <Route exact path={AppRoute.AddReview}>
-          <AddReview/>
+          <AddReview reviewsFilm={films}/>
         </Route>
         <Route exact path={AppRoute.Player}>
           <PlayerScreen/>
