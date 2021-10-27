@@ -1,11 +1,17 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
+import Tabs from '../tabs/tabs';
+import {useState} from 'react';
+import FilmInfo from '../film-info/film-info';
+import FilmDetails from '../film-details/film-details';
+import FilmReviews from '../film-reviews/film-reviews';
 
 type AboutFilmProps = {
   aboutFilm: Films[];
 }
 
 function Film({aboutFilm}: AboutFilmProps): JSX.Element {
+  const [ActiveTabs, setActiveTabs] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = aboutFilm.find((x) => x.id === id) as Films;
 
@@ -61,7 +67,7 @@ function Film({aboutFilm}: AboutFilmProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button"to={`/films/${film.id}/review`}>Add review</Link>
+                <Link className="btn film-card__button" to={`/films/${film.id}/review`}>Add review</Link>
               </div>
             </div>
           </div>
@@ -75,35 +81,11 @@ function Film({aboutFilm}: AboutFilmProps): JSX.Element {
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href=" #" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href=" #" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href=" #" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
+                <Tabs ActiveTabs={ActiveTabs} setActiveTabs={setActiveTabs}/>
               </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{film.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                {film.description}
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                <p className="film-card__starring">
-                  <strong>Starring: {film.starring}</strong>
-                </p>
-              </div>
+              {(ActiveTabs === 0) ? <FilmInfo film={film}/> : (ActiveTabs === 1)}
+              {(ActiveTabs === 1) ? <FilmDetails/> : (ActiveTabs === 1)}
+              {(ActiveTabs === 2) ? <FilmReviews/> : (ActiveTabs === 1)}
             </div>
           </div>
         </div>
