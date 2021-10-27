@@ -1,18 +1,19 @@
 import React, {ChangeEvent} from 'react';
 
-type Star = {
+type ReviewStarProps = {
   star: number
+  amount: number
+  onChange: (value: number) => void
 }
 
-function ReviewStar({star}: Star): JSX.Element {
-  const [rating, setRating] = React.useState('');
+function ReviewStar({star,amount,onChange}: ReviewStarProps): JSX.Element {
 
-  const handleChangeRating = (evt: ChangeEvent<HTMLInputElement>) => setRating(evt.target.value);
+  const handleChangeRating = (evt: ChangeEvent<HTMLInputElement>) => onChange(star);
 
   return (
     <>
-      <input className="rating__input" id={`star-${star}`} type="radio" name="rating" value={`${star}`} checked={rating === `${star}`} onChange={handleChangeRating}/>
-      <label className="rating__label" htmlFor={`star-${star}`}>Rating {`${star}`}</label>
+      <input className="rating__input" id={`star-${star}`} type="radio" name="rating" value={star} checked={amount === star} onChange={handleChangeRating}/>
+      <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
     </>
   );
 }
