@@ -8,7 +8,7 @@ type ReviewStarProps = {
 
 function ReviewStar({star,amount,onChange}: ReviewStarProps): JSX.Element {
 
-  const handleChangeRating = (evt: ChangeEvent<HTMLInputElement>) => onChange(star);
+  const handleChangeRating = () => onChange(star);
 
   return (
     <>
