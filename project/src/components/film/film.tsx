@@ -6,17 +6,19 @@ import {useState} from 'react';
 import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
+import FilmList from '../film-list/film-list';
 
 type AboutFilmProps = {
   aboutFilm: Films[];
   comments: Comment[];
 }
 
-function Film({aboutFilm,comments}: AboutFilmProps): JSX.Element {
-  const [ActiveTabs, setActiveTabs] = useState(0);
+function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
+  const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = aboutFilm.find((x) => x.id === id) as Films;
-  const comment=comments.find((x) => x.id === id) as Comment;
+  const comment = comments.filter((movie) => movie['id'] === id);
+  const similarMovies = aboutFilm.filter((movie) => movie['genre'] === film.genre && movie['id'] !== film.id);
 
   return (
     <>
@@ -84,11 +86,11 @@ function Film({aboutFilm,comments}: AboutFilmProps): JSX.Element {
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
-                <Tabs ActiveTabs={ActiveTabs} setActiveTabs={setActiveTabs}/>
+                <Tabs activeTabs={activeTabs} onChange={onChange}/>
               </nav>
-              {(ActiveTabs === 0) ? <FilmInfo film={film}/> : (ActiveTabs === 1)}
-              {(ActiveTabs === 1) ? <FilmDetails film={film}/> : (ActiveTabs === 1)}
-              {(ActiveTabs === 2) ? <FilmReviews comments={comment}/> : (ActiveTabs === 1)}
+              {(activeTabs === 0) && <FilmInfo film={film}/>}
+              {(activeTabs === 1) && <FilmDetails film={film}/>}
+              {(activeTabs === 2) && <FilmReviews comments={comment}/>}
             </div>
           </div>
         </div>
@@ -97,43 +99,7 @@ function Film({aboutFilm,comments}: AboutFilmProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <FilmList films={similarMovies}/>
         </section>
 
         <footer className="page-footer">
