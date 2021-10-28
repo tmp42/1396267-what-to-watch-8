@@ -1,6 +1,7 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Films} from '../../types/films';
+import {Comment} from '../../types/comments';
 import MainContent from '../main-content/main-content';
 import Film from '../film/film';
 import SignIn from '../login-screen/login-screen';
@@ -12,9 +13,10 @@ import FavouriteFilmScreen from '../favourite-film-screen/favourite-film-screen'
 
 type AppProps = {
   films: Films[];
+  comments: Comment[];
 }
 
-function App({films}: AppProps): JSX.Element {
+function App({films,comments}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -32,7 +34,7 @@ function App({films}: AppProps): JSX.Element {
           <FavouriteFilmScreen favouriteFilm={films}/>
         </Route>
         <Route exact path={AppRoute.Film}>
-          <Film aboutFilm={films}/>
+          <Film aboutFilm={films} comments={comments}/>
         </Route>
         <Route exact path={AppRoute.AddReview}>
           <AddReview reviewsFilm={films}/>

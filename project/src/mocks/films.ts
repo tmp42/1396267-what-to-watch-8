@@ -92,7 +92,7 @@ export const films: Films[] = [
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
     runTime: 95,
-    genre: 'Romance',
+    genre: 'Comedies',
     released: 2015,
     isFavorite: false,
   },

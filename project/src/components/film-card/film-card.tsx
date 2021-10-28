@@ -8,7 +8,7 @@ type FilmCardProps = {
 }
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
-  const [isActive, setActiveState] = useState<boolean>(false);
+  const [isActive, setActiveState] = useState(false);
   const [timeoutHandle, setTimeoutHandleState] = useState<number | null>(null);
 
   const onMouseEnterFilmHandler = (): void => {
