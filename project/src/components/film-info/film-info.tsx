@@ -5,6 +5,8 @@ type FilmInfoProps = {
 }
 
 function FilmInfo({film}: FilmInfoProps): JSX.Element {
+  const Starring = film.starring.map((item) => item.concat(', '));
+
   return (
     <>
       <div className="film-rating">
@@ -19,7 +21,7 @@ function FilmInfo({film}: FilmInfoProps): JSX.Element {
         {film.description}
         <p className="film-card__director"><strong>Director: {film.director}</strong></p>
         <p className="film-card__starring">
-          <strong> Starring :{film.starring}</strong>
+          <strong> Starring :{Starring}</strong>
         </p>
       </div>
     </>

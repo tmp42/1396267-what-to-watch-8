@@ -1,5 +1,6 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
+import {Comment} from '../../types/comments';
 import Tabs from '../tabs/tabs';
 import {useState} from 'react';
 import FilmInfo from '../film-info/film-info';
@@ -8,12 +9,14 @@ import FilmReviews from '../film-reviews/film-reviews';
 
 type AboutFilmProps = {
   aboutFilm: Films[];
+  comments: Comment[];
 }
 
-function Film({aboutFilm}: AboutFilmProps): JSX.Element {
+function Film({aboutFilm,comments}: AboutFilmProps): JSX.Element {
   const [ActiveTabs, setActiveTabs] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = aboutFilm.find((x) => x.id === id) as Films;
+  const comment=comments.find((x) => x.id === id) as Comment;
 
   return (
     <>
@@ -84,8 +87,8 @@ function Film({aboutFilm}: AboutFilmProps): JSX.Element {
                 <Tabs ActiveTabs={ActiveTabs} setActiveTabs={setActiveTabs}/>
               </nav>
               {(ActiveTabs === 0) ? <FilmInfo film={film}/> : (ActiveTabs === 1)}
-              {(ActiveTabs === 1) ? <FilmDetails/> : (ActiveTabs === 1)}
-              {(ActiveTabs === 2) ? <FilmReviews/> : (ActiveTabs === 1)}
+              {(ActiveTabs === 1) ? <FilmDetails film={film}/> : (ActiveTabs === 1)}
+              {(ActiveTabs === 2) ? <FilmReviews comments={comment}/> : (ActiveTabs === 1)}
             </div>
           </div>
         </div>
@@ -94,7 +97,6 @@ function Film({aboutFilm}: AboutFilmProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
           <div className="catalog__films-list">
             <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">

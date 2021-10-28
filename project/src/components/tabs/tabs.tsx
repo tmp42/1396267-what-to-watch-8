@@ -17,13 +17,13 @@ function Tabs({setActiveTabs, ActiveTabs}: TabsProps): JSX.Element {
   return (
     <ul className="film-nav__list">
       <li className={`film-nav__item ${ActiveTabs===0 ? 'film-nav__item--active' :' '}`}>
-        <p className="film-nav__link" onClick={handleSetTabsFilm}>Overview</p>
+        <a className="film-nav__link" onClick={handleSetTabsFilm}>Overview</a>
       </li>
       <li className={`film-nav__item ${ActiveTabs===1 ? 'film-nav__item--active' :' '}`}>
-        <p className="film-nav__link" onClick={handleSetTabsDetails}>Details</p>
+        <a className="film-nav__link" onClick={handleSetTabsDetails}>Details</a>
       </li>
       <li className={`film-nav__item ${ActiveTabs===2 ? 'film-nav__item--active' :' '}`}>
-        <p className="film-nav__link" onClick={handleSetTabsReviews}>Reviews</p>
+        <a className="film-nav__link" onClick={handleSetTabsReviews}>Reviews</a>
       </li>
     </ul>
   );
