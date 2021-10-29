@@ -1,6 +1,10 @@
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list';
 import {Films} from '../../types/films';
+import Logo from '../logo/logo';
+import GenreList from './genres-list';
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state';
 
 type MainFilmProps = {
   films: Films[];
@@ -8,6 +12,8 @@ type MainFilmProps = {
 
 function MainContent({films}: MainFilmProps): JSX.Element {
   const firstContent = films[0];
+  const selectGenre = useSelector<State>((store) => store.genre);
+  const filterMovies = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres');
   return (
     <>
       <section className="film-card">
@@ -18,13 +24,7 @@ function MainContent({films}: MainFilmProps): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <Link className="logo__link" to="/">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+          <Logo/>
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -72,41 +72,9 @@ function MainContent({films}: MainFilmProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <GenreList/>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href=" #" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href=" #" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
-
-          <FilmList films={films}/>
+          <FilmList films={filterMovies}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -114,13 +82,7 @@ function MainContent({films}: MainFilmProps): JSX.Element {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light" href=" #">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

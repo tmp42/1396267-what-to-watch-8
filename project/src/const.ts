@@ -1,3 +1,5 @@
+export const FIRST_GENRE = 'All genres';
+
 export enum AppRoute {
   MainContent = '/',
   SignIn = '/login',
