@@ -7,6 +7,7 @@ import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
+import Logo from '../logo/logo';
 
 type AboutFilmProps = {
   aboutFilm: Films[];
@@ -31,13 +32,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link className="logo__link" to="/">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo/>
 
             <ul className="user-block">
               <li className="user-block__item">
@@ -103,13 +98,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <Link className="logo__link logo__link--light" to="/">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+          <Logo/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
