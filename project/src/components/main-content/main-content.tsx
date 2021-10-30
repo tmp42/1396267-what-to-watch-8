@@ -5,6 +5,7 @@ import Logo from '../logo/logo';
 import GenreList from './genres-list';
 import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
+import ButtonShowMore from './button-show-more';
 
 type MainFilmProps = {
   films: Films[];
@@ -13,7 +14,10 @@ type MainFilmProps = {
 function MainContent({films}: MainFilmProps): JSX.Element {
   const firstContent = films[0];
   const selectGenre = useSelector<State>((store) => store.genre);
-  const filterMovies = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres');
+  const countFilm = Number(useSelector<State>((store) => store.countFilm));
+  const countFilterFilm = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres').length;
+  const filterMovies = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres').slice(0, countFilm);
+
   return (
     <>
       <section className="film-card">
@@ -73,12 +77,8 @@ function MainContent({films}: MainFilmProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList/>
-
           <FilmList films={filterMovies}/>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {countFilm < countFilterFilm && <ButtonShowMore/>}
         </section>
 
         <footer className="page-footer">

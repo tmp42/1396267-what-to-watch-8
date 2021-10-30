@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
-import {changeGenreAction} from '../../types/action';
+import {changeGenreAction} from '../../store/action';
 
 type GenreListItemProps = {
   name: string
