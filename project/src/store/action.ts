@@ -10,3 +10,7 @@ export const changeAddFilm = (colFilm: number) => ({
   type: ActionType.AddFilm,
   payload: colFilm,
 });
+
+export const resetGenreFilm = () => ({
+  type: ActionType.ResetGenreFilm,
+} as const);

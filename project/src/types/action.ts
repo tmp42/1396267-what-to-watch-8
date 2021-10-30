@@ -1,6 +1,7 @@
 export enum ActionType {
   ChangeGenre = 'film/ChangeGenre',
-  AddFilm = 'film/AddFilm'
+  AddFilm = 'film/AddFilm',
+  ResetGenreFilm = 'film/ResetGenreFilm'
 }
 
 export type ChangeGenre = {
@@ -13,4 +14,9 @@ export type AddFilm = {
   payload: number;
 };
 
-export type Actions = ChangeGenre | AddFilm;
+export type ResetGenreFilm = {
+  type: ActionType.ResetGenreFilm;
+  payload: number;
+};
+
+export type Actions = ChangeGenre | AddFilm | ResetGenreFilm;

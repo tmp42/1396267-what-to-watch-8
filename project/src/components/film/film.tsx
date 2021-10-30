@@ -78,7 +78,6 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img src={film.previewImage} alt={film.name} width="218" height="327"/>
             </div>
-
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <Tabs activeTabs={activeTabs} onChange={onChange}/>
