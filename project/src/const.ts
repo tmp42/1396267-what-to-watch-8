@@ -1,4 +1,5 @@
 export const FIRST_GENRE = 'All genres';
+export const FIRST_COUNT_FILM = 8;
 
 export enum AppRoute {
   MainContent = '/',

@@ -21,7 +21,7 @@ function App({films,comments}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MainContent}>
-          <MainContent films={films}/>);
+          <MainContent films={films}/>
         </Route>
         <PrivateRoute
           exact

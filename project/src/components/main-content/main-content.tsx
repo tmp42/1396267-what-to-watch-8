@@ -3,8 +3,11 @@ import FilmList from '../film-list/film-list';
 import {Films} from '../../types/films';
 import Logo from '../logo/logo';
 import GenreList from './genres-list';
-import {useSelector} from 'react-redux';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {State} from '../../types/state';
+import ButtonShowMore from './button-show-more';
+import {useEffect} from 'react';
+import {resetGenreFilm} from '../../store/action';
 
 type MainFilmProps = {
   films: Films[];
@@ -12,8 +15,19 @@ type MainFilmProps = {
 
 function MainContent({films}: MainFilmProps): JSX.Element {
   const firstContent = films[0];
-  const selectGenre = useSelector<State>((store) => store.genre);
-  const filterMovies = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres');
+  const {selectGenre, countFilm} = useSelector<State, { selectGenre: string, countFilm: number }>((store) => ({
+    selectGenre: store.genre,
+    countFilm: store.countFilm,
+  }), shallowEqual);
+  const filterGenre = films.filter((movie) => movie['genre'] === selectGenre || selectGenre === 'All genres');
+  const countFilterFilm = filterGenre.length;
+  const filterMovies = filterGenre.slice(0, countFilm);
+  const dispatch = useDispatch();
+
+  useEffect(() => () => {
+    dispatch(resetGenreFilm());
+  }, []);
+
   return (
     <>
       <section className="film-card">
@@ -73,12 +87,8 @@ function MainContent({films}: MainFilmProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList/>
-
           <FilmList films={filterMovies}/>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {countFilm < countFilterFilm && <ButtonShowMore/>}
         </section>
 
         <footer className="page-footer">

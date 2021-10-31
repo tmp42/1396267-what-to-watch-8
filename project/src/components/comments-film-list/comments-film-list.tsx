@@ -7,7 +7,7 @@ type CommentsFilmList = {
 
 function CommentsFilmList({comments}: CommentsFilmList): JSX.Element {
   const firstColumn = comments.slice(0, Math.ceil(comments.length / 2));
-  const secondolumn = comments.slice(-Math.ceil(comments.length / 2));
+  const secondColumn = comments.slice(-Math.ceil(comments.length / 2));
 
   return (
     <>
@@ -17,7 +17,7 @@ function CommentsFilmList({comments}: CommentsFilmList): JSX.Element {
         ))}
       </div>
       <div className="film-card__reviews-col">
-        {secondolumn.map((comment) => (
+        {secondColumn.map((comment) => (
           <CommentFilm key={comment.id} comment={comment}/>
         ))}
       </div>
