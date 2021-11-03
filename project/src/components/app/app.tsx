@@ -1,7 +1,6 @@
+import {connect, shallowEqual, useSelector} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {Films} from '../../types/films';
-import {Comment} from '../../types/comments';
 import MainContent from '../main-content/main-content';
 import Film from '../film/film';
 import SignIn from '../login-screen/login-screen';
@@ -10,13 +9,33 @@ import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import FavouriteFilmScreen from '../favourite-film-screen/favourite-film-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {State} from '../../types/state';
+import {Films} from '../../types/films';
+import {Comments} from '../../types/comments';
 
-type AppProps = {
-  films: Films[];
-  comments: Comment[];
-}
+const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
+  authorizationStatus,
+  isDataLoaded,
+});
 
-function App({films,comments}: AppProps): JSX.Element {
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
+
+const connector = connect(mapStateToProps);
+
+function App(): JSX.Element {
+  const {authorizationStatus, isDataLoaded, films, comments} = useSelector<State, { authorizationStatus: AuthorizationStatus, isDataLoaded: boolean, films: Films[], comments: Comments[] }>((store) => ({
+    authorizationStatus: store.authorizationStatus,
+    isDataLoaded: store.isDataLoaded,
+    films: store.filmList,
+    comments: store.commentsList,
+  }), shallowEqual);
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
   return (
     <BrowserRouter>
       <Switch>
@@ -50,4 +69,5 @@ function App({films,comments}: AppProps): JSX.Element {
   );
 }
 
-export default App;
+export {App};
+export default connector(App);

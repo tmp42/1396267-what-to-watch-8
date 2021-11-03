@@ -1,6 +1,6 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
-import {Comment} from '../../types/comments';
+import {Comments} from '../../types/comments';
 import Tabs from '../tabs/tabs';
 import {useState} from 'react';
 import FilmInfo from '../film-info/film-info';
@@ -11,7 +11,7 @@ import Logo from '../logo/logo';
 
 type AboutFilmProps = {
   aboutFilm: Films[];
-  comments: Comment[];
+  comments: Comments[];
 }
 
 function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {

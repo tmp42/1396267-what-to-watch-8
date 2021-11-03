@@ -1,7 +1,7 @@
-import {Comment} from '../../types/comments';
+import {Comments} from '../../types/comments';
 
 type CommentFilmProps = {
-  comment: Comment
+  comment: Comments
 }
 
 function CommentFilm({comment}: CommentFilmProps): JSX.Element {
