@@ -1,19 +1,19 @@
 export type Films = {
   id: number;
   name: string;
-  posterImage: string;
-  previewImage: string;
-  backgroundImage: string;
-  backgroundColor: string;
-  videoLink: string;
-  previewVideoLink: string;
+  poster_image: string;
+  preview_image: string;
+  background_image: string;
+  background_color: string;
+  video_link: string;
+  preview_video_link: string;
   description: string;
   rating: number;
-  scoresCount: number;
+  scores_count: number;
   director: string;
   starring: string[];
-  runTime: number;
+  run_time: number;
   genre: string;
   released: number;
-  isFavorite: boolean;
+  is_favorite: boolean;
 };

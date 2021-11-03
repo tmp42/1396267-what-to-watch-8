@@ -1,6 +1,5 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
-import {Comments} from '../../types/comments';
 import Tabs from '../tabs/tabs';
 import {useState} from 'react';
 import FilmInfo from '../film-info/film-info';
@@ -8,13 +7,11 @@ import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state';
 
-type AboutFilmProps = {
-  aboutFilm: Films[];
-  comments: Comments[];
-}
-
-function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
+function Film(): JSX.Element {
+  const {aboutFilm} = useSelector<State>((store) => store.filmList);
   const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = aboutFilm.find((x) => x.id === id) as Films;
@@ -26,7 +23,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name}/>
+            <img src={film.background_image} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -76,7 +73,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.previewImage} alt={film.name} width="218" height="327"/>
+              <img src={film.preview_image} alt={film.name} width="218" height="327"/>
             </div>
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">

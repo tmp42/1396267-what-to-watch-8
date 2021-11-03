@@ -9,14 +9,13 @@ type GenreListItemProps = {
 }
 
 const listGenre = [{name: 'All genres'},
-  {name: 'Comedies'},
+  {name: 'Adventure'},
   {name: 'Crime'},
-  {name: 'Documentary'},
-  {name: 'Dramas'},
-  {name: 'Horror'},
-  {name: 'Romance'},
-  {name: 'Sci-Fi'},
-  {name: 'Thrillers'}];
+  {name: 'Action'},
+  {name: 'Comedy'},
+  {name: 'Drama'},
+  {name: 'Fantasy'},
+  {name: 'Thriller'}];
 
 
 function GenreListItem({name, active, onClick}: GenreListItemProps): JSX.Element {

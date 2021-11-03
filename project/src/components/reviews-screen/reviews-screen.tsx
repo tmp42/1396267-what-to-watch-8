@@ -2,13 +2,11 @@ import {Films} from '../../types/films';
 import AddReview from '../add-review/add-review';
 import {useParams} from 'react-router-dom';
 import Logo from '../logo/logo';
+import {useSelector} from 'react-redux';
+import {State} from '../../types/state';
 
-type ReviewsScreenProps = {
-  reviewsFilm: Films[];
-}
-
-function ReviewsScreen({reviewsFilm}: ReviewsScreenProps): JSX.Element {
-
+function ReviewsScreen(): JSX.Element {
+  const {reviewsFilm} = useSelector<State>((store) => store.filmList);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = reviewsFilm.find((x) => x.id === id) as Films;
 
@@ -16,7 +14,7 @@ function ReviewsScreen({reviewsFilm}: ReviewsScreenProps): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.name}/>
+          <img src={film.background_image} alt={film.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -48,7 +46,7 @@ function ReviewsScreen({reviewsFilm}: ReviewsScreenProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.previewImage} alt={film.name} width="218" height="327"/>
+          <img src={film.preview_image} alt={film.name} width="218" height="327"/>
         </div>
       </div>
       <AddReview/>

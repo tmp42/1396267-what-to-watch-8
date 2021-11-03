@@ -3,7 +3,7 @@ import {loadComments, loadFilms, requireAuthorization, requireLogout} from './ac
 import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {Films} from '../types/films';
-import {AuthData} from '../types/auth-data';
+import {AuthData} from '../types/auth';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
