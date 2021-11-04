@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
 
 function ReviewsScreen(): JSX.Element {
-  const {reviewsFilm} = useSelector<State>((store) => store.filmList);
+  const reviewsFilm = useSelector<State, Films[]>((store) => store.filmList as Films[]);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = reviewsFilm.find((x) => x.id === id) as Films;
 

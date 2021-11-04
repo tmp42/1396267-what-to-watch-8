@@ -9,13 +9,14 @@ import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
+import { Comments } from '../../types/comments';
 
 function Film(): JSX.Element {
-  const {aboutFilm} = useSelector<State>((store) => store.filmList);
+  const aboutFilm = useSelector<State, Films[]>((store) => store.filmList as Films[]);
   const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = aboutFilm.find((x) => x.id === id) as Films;
-  const comment = comments.filter((movie) => movie['id'] === id);
+  const comment: Comments[] = [];
   const similarMovies = aboutFilm.filter((movie) => movie['genre'] === film.genre && movie['id'] !== film.id);
 
   return (

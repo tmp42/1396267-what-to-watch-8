@@ -7,9 +7,10 @@ import {State} from '../../types/state';
 import ButtonShowMore from './button-show-more';
 import {useEffect} from 'react';
 import {resetGenreFilm} from '../../store/action';
+import {Films} from '../../types/films';
 
 function MainContent(): JSX.Element {
-  const {films} = useSelector<State>((store) => store.filmList);
+  const films =  useSelector<State, Films[]>((store) => store.filmList);
   const firstContent = films[0];
   const {selectGenre, countFilm} = useSelector<State, { selectGenre: string, countFilm: number }>((store) => ({
     selectGenre: store.genre,

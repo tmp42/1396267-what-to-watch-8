@@ -1,16 +1,16 @@
 import {connect, shallowEqual, useSelector} from 'react-redux';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainContent from '../main-content/main-content';
 import Film from '../film/film';
-import SignIn from '../login-screen/login-screen';
+import LoginScreen from '../login-screen/login-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import PrivateRoute from '../private-route/private-route';
 import FavouriteFilmScreen from '../favourite-film-screen/favourite-film-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {State} from '../../types/state';
 import ReviewsScreen from '../reviews-screen/reviews-screen';
+import browserHistory from '../../browser-history';
 
 const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
   authorizationStatus,
@@ -33,18 +33,14 @@ function App(): JSX.Element {
     );
   }
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MainContent}>
           <MainContent/>
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.SignIn}
-          render={() => <SignIn/>}
-          authorizationStatus={AuthorizationStatus.NoAuth}
-        >
-        </PrivateRoute>
+        <Route exact path={AppRoute.SignIn}>
+          <LoginScreen />
+        </Route>
         <Route exact path={AppRoute.MyList}>
           <FavouriteFilmScreen/>
         </Route>
