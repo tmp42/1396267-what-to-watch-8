@@ -7,11 +7,6 @@ export const changeGenreAction = (genre: string) => ({
   payload: genre,
 });
 
-export const selectFilm = (film: Films): SelectFilm => ({
-  type: ActionType.SelectFilm,
-  payload: film,
-});
-
 export const changeAddFilm = (colFilm: number) => ({
   type: ActionType.AddFilm,
   payload: colFilm,
@@ -37,12 +32,6 @@ export const loadFilms = (filmList: Films[]) => ({
   },
 } as const);
 
-export const loadComments = (comments: Comment[]) => ({
-  type: ActionType.LoadComments,
-  payload: {
-    comments,
-  },
-} as const);
 
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,

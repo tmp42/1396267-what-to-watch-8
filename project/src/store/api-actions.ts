@@ -1,5 +1,5 @@
 import {ThunkActionResult} from '../types/action';
-import {loadComments, loadFilms, requireAuthorization, requireLogout, redirectToRoute} from './action';
+import { loadFilms, requireAuthorization, requireLogout, redirectToRoute} from './action';
 import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
 import {Films} from '../types/films';
@@ -17,12 +17,6 @@ export const checkAuthAction = (): ThunkActionResult =>
       .then(() => {
         dispatch(requireAuthorization(AuthorizationStatus.Auth));
       });
-  };
-
-export const fetchCommentsAction = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Comment[]>(APIRoute.Comments);
-    dispatch(loadComments(data));
   };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
