@@ -5,7 +5,7 @@ import {
 import {
   AxiosInstance
 } from 'axios';
-import {State} from '../types/state';
+import {State} from './state';
 import {redirectToRoute, requireAuthorization, requireLogout} from '../store/action';
 import {Films} from './films';
 

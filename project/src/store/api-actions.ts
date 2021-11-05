@@ -4,6 +4,9 @@ import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
 import {Films} from '../types/films';
 import {AuthData} from '../types/auth';
+import {useDispatch} from "react-redux";
+import {useMemo} from "react";
+import {createAPI} from "../services/api";
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -15,7 +18,8 @@ export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     await api.get(APIRoute.Login)
       .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+        console.log('12');
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
       });
   };
 
@@ -34,3 +38,8 @@ export const logoutAction = (): ThunkActionResult =>
     dropToken();
     dispatch(requireLogout());
   };
+
+export const useApi = () => {
+  const dispatch = useDispatch();
+  return useMemo(() => createAPI(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth))), [dispatch]);
+};

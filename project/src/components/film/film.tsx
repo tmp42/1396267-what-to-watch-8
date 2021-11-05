@@ -9,7 +9,7 @@ import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {Comments} from '../../types/comments';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {useApi} from '../../services/api';
+import {useApi} from '../../store/api-actions';
 import {APIRoute} from '../../const';
 import LoginButton from '../login-button/login-button';
 

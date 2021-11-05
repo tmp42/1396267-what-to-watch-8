@@ -1,9 +1,5 @@
-import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {getToken} from './token';
-import {useDispatch} from 'react-redux';
-import {useMemo} from 'react';
-import {requireAuthorization} from '../store/action';
-import {AuthorizationStatus} from '../const';
 
 const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -27,7 +23,7 @@ export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance =
       const {response} = error;
 
       if (response?.status === HttpCode.Unauthorized) {
-        return onUnauthorized();
+        onUnauthorized();
       }
 
       return Promise.reject(error);
@@ -47,9 +43,4 @@ export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance =
   );
 
   return api;
-};
-
-export const useApi = () => {
-  const dispatch = useDispatch();
-  return useMemo(() => createAPI(() => dispatch(requireAuthorization(AuthorizationStatus.NoAuth))), []);
 };
