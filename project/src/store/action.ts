@@ -1,4 +1,4 @@
-import {ActionType} from '../types/action';
+import {ActionType, SelectFilm} from '../types/action';
 import {Films} from '../types/films';
 import {AppRoute, AuthorizationStatus} from '../const';
 
@@ -7,6 +7,10 @@ export const changeGenreAction = (genre: string) => ({
   payload: genre,
 });
 
+export const selectFilm = (film: Films): SelectFilm => ({
+  type: ActionType.SelectFilm,
+  payload: film,
+});
 
 export const changeAddFilm = (colFilm: number) => ({
   type: ActionType.AddFilm,

@@ -1,24 +1,48 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
 import Tabs from '../tabs/tabs';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
-import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import { Comments } from '../../types/comments';
+import {Comments} from '../../types/comments';
+import {fetchFilmAction} from '../../store/api-actions';
+import LoadingScreen from "../loading-screen/loading-screen";
+import {useApi} from '../../services/api';
+import {useDispatch} from 'react-redux';
+import {APIRoute} from "../../const";
 
 function Film(): JSX.Element {
-  const aboutFilm = useSelector<State, Films[]>((store) => store.filmList as Films[]);
+  const dispath = useDispatch();
   const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
-  const film = aboutFilm.find((x) => x.id === id) as Films;
-  const comment: Comments[] = [];
-  const similarMovies = aboutFilm.filter((movie) => movie['genre'] === film.genre && movie['id'] !== film.id);
+  const api = useApi();
+  const [{isLoading, film, comments, similarMovies}, setState] = useState({
+    isLoading: true,
+    film: null as Films | null,
+    comments: [] as Comments[],
+    similarMovies: [] as Films[],
+  });
 
+  useEffect(() => {
+    Promise.all([
+      api.get<Films>(APIRoute.Film.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, film: data,
+      }))),
+      api.get<Comments[]>(APIRoute.Comments.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, comments: data,
+      }))),
+      api.get<Films[]>(APIRoute.SimilarFilm.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, similarMovies: data,
+      }))),
+    ]).then(() => setState((state) => ({...state, isLoading: false})));
+  }, []);
+
+  if (isLoading || !film) {
+    return <LoadingScreen/>;
+  }
   return (
     <>
       <section className="film-card film-card--full">
@@ -82,7 +106,7 @@ function Film(): JSX.Element {
               </nav>
               {(activeTabs === 0) && <FilmInfo film={film}/>}
               {(activeTabs === 1) && <FilmDetails film={film}/>}
-              {(activeTabs === 2) && <FilmReviews comments={comment}/>}
+              {(activeTabs === 2) && <FilmReviews comments={comments}/>}
             </div>
           </div>
         </div>

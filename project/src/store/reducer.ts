@@ -1,6 +1,6 @@
-import {ActionType, Actions} from '../types/action';
+import {Actions, ActionType} from '../types/action';
 import {State} from '../types/state';
-import {FIRST_GENRE, FIRST_COUNT_FILM, AuthorizationStatus} from '../const';
+import {AuthorizationStatus, FIRST_COUNT_FILM, FIRST_GENRE} from '../const';
 
 const initialState = {
   genre: FIRST_GENRE,
@@ -21,7 +21,11 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...initialState};
     case ActionType.LoadFilms: {
       const {filmList} = action.payload;
-      return {...state, filmList};
+      return {
+        ...state,
+        filmList,
+        isDataLoaded: true
+      };
     }
     case ActionType.LoadComments: {
       const {commentsList} = action.payload;
@@ -33,7 +37,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         authorizationStatus: action.payload,
-        isDataLoaded: true,
       };
     default:
       return state;

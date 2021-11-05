@@ -8,6 +8,7 @@ import ButtonShowMore from './button-show-more';
 import {useEffect} from 'react';
 import {resetGenreFilm} from '../../store/action';
 import {Films} from '../../types/films';
+import LoginButton from "../login-button/login-button";
 
 function MainContent(): JSX.Element {
   const films =  useSelector<State, Films[]>((store) => store.filmList);
@@ -37,16 +38,7 @@ function MainContent(): JSX.Element {
         <header className="page-header film-card__head">
           <Logo/>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href=" #">Sign out</a>
-            </li>
-          </ul>
+          <LoginButton/>
         </header>
 
         <div className="film-card__wrap">

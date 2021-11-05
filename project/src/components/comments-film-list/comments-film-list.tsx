@@ -16,11 +16,16 @@ function CommentsFilmList({comments}: CommentsFilmList): JSX.Element {
           <CommentFilm key={comment.id} comment={comment}/>
         ))}
       </div>
-      <div className="film-card__reviews-col">
-        {secondColumn.map((comment) => (
-          <CommentFilm key={comment.id} comment={comment}/>
-        ))}
-      </div>
+      {comments.length > 1 ?
+        <div className="film-card__reviews-col">
+          {secondColumn.map((comment) => (
+            <CommentFilm key={comment.id} comment={comment}/>
+          ))}
+        </div>
+        :
+        <>
+        </>
+      }
     </>
   );
 }

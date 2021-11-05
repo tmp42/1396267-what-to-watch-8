@@ -1,32 +1,30 @@
 import Logo from '../logo/logo';
-import {useRef, FormEvent} from 'react';
-import {loginAction} from '../../store/api-actions';
-import {ThunkAppDispatch} from '../../types/action';
-import {AuthData} from '../../types/auth';
-import {connect, ConnectedProps} from 'react-redux';
+import {useRef, MouseEvent} from 'react';
+import {useDispatch} from 'react-redux';
+import {useApi} from '../../services/api';
+import {loginAction} from "../../store/api-actions";
+import {current} from '@reduxjs/toolkit';
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
-    dispatch(loginAction(authData));
-  },
-});
+function LoginScreen(): JSX.Element {
 
-const connector = connect(null, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
+  const dispatch = useDispatch();
+  const api = useApi();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
-
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+      api.get('/login')
+        .then((data) => {
+          // @ts-ignore
+          dispatch(loginAction({login: loginRef.current.value, password: passwordRef.current.value}));
+        })
+        .catch(() => {
+
+          // showErrors
+        });
     }
   };
 
@@ -39,7 +37,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form className="sign-in__form" action="" onSubmit={handleSubmit}>
+        <form className="sign-in__form" action="">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef}/>
@@ -51,7 +49,7 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
+            <button className="sign-in__btn" type="submit" onClick={handleClick}>Sign in</button>
           </div>
         </form>
       </div>
@@ -67,5 +65,4 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
   );
 }
 
-export {LoginScreen};
-export default connector(LoginScreen);
+export default LoginScreen;
