@@ -5,12 +5,12 @@ import {AppRoute, AuthorizationStatus} from '../const';
 export const changeGenreAction = (genre: string) => ({
   type: ActionType.ChangeGenre,
   payload: genre,
-});
+} as const);
 
 export const changeAddFilm = (colFilm: number) => ({
   type: ActionType.AddFilm,
   payload: colFilm,
-});
+} as const);
 
 export const resetGenreFilm = () => ({
   type: ActionType.ResetGenreFilm,
@@ -31,7 +31,6 @@ export const loadFilms = (filmList: Films[]) => ({
     filmList,
   },
 } as const);
-
 
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,

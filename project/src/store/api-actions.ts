@@ -15,7 +15,7 @@ export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     await api.get(APIRoute.Login)
       .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+        dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
       });
   };
 

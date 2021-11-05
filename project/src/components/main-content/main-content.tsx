@@ -24,7 +24,7 @@ function MainContent(): JSX.Element {
 
   useEffect(() => () => {
     dispatch(resetGenreFilm());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
