@@ -8,14 +8,12 @@ import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {Comments} from '../../types/comments';
-import {fetchFilmAction} from '../../store/api-actions';
 import LoadingScreen from "../loading-screen/loading-screen";
 import {useApi} from '../../services/api';
-import {useDispatch} from 'react-redux';
-import {APIRoute} from "../../const";
+import {APIRoute} from '../../const';
+import LoginButton from '../login-button/login-button';
 
 function Film(): JSX.Element {
-  const dispath = useDispatch();
   const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const api = useApi();
@@ -55,17 +53,7 @@ function Film(): JSX.Element {
 
           <header className="page-header film-card__head">
             <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href=" #">Sign out</a>
-              </li>
-            </ul>
+           <LoginButton/>
           </header>
 
           <div className="film-card__wrap">

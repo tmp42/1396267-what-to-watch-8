@@ -18,7 +18,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.AddFilm:
       return {...state, countFilm: state.countFilm + action.payload};
     case ActionType.ResetGenreFilm:
-      return {...initialState};
+      return {...state, genre: FIRST_GENRE, countFilm: FIRST_COUNT_FILM};
     case ActionType.LoadFilms: {
       const {filmList} = action.payload;
       return {
