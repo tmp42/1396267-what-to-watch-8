@@ -11,6 +11,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {State} from '../../types/state';
 import ReviewsScreen from '../reviews-screen/reviews-screen';
 import browserHistory from '../../browser-history';
+import PrivateRoute from "../private-route/private-route";
 
 const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
   authorizationStatus,
@@ -39,17 +40,23 @@ function App(): JSX.Element {
           <MainContent/>
         </Route>
         <Route exact path={AppRoute.SignIn}>
-          <LoginScreen />
+          <LoginScreen/>
         </Route>
-        <Route exact path={AppRoute.MyList}>
-          <FavouriteFilmScreen/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.MyList}
+          render={({history}) => (
+            <FavouriteFilmScreen/>)}>
+        </PrivateRoute>
         <Route exact path={AppRoute.Film}>
           <Film/>
         </Route>
-        <Route exact path={AppRoute.AddReview}>
-          <ReviewsScreen/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.AddReview}
+          render={({history}) => (
+            <ReviewsScreen/>)}>
+        </PrivateRoute>
         <Route exact path={AppRoute.Player}>
           <PlayerScreen/>
         </Route>
