@@ -1,4 +1,4 @@
-import {ActionType, SelectFilm} from '../types/action';
+import {ActionType} from '../types/action';
 import {Films} from '../types/films';
 import {AppRoute, AuthorizationStatus} from '../const';
 

@@ -6,7 +6,7 @@ import {
   AxiosInstance
 } from 'axios';
 import {State} from '../types/state';
-import {loadComments, loadFilms, redirectToRoute, requireAuthorization, requireLogout} from '../store/action';
+import {redirectToRoute, requireAuthorization, requireLogout} from '../store/action';
 import {Films} from './films';
 
 export enum ActionType {
@@ -51,9 +51,9 @@ export type LoadComments = {
   payload: any;
 };
 
-export type Actions = ChangeGenre | AddFilm | ResetGenreFilm | LoadFilms | ReturnType<typeof loadFilms>
+export type Actions = ChangeGenre | AddFilm | ResetGenreFilm | LoadFilms
   | ReturnType<typeof requireAuthorization>
-  | ReturnType<typeof requireLogout> | LoadComments | ReturnType<typeof loadComments> | ReturnType<typeof requireLogout>
+  | ReturnType<typeof requireLogout> | LoadComments | ReturnType<typeof requireLogout>
   | ReturnType<typeof redirectToRoute> | SelectFilm;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
