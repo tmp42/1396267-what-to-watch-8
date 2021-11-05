@@ -7,7 +7,7 @@ type FilmInfoProps = {
 function FilmInfo({film}: FilmInfoProps): JSX.Element {
   const Starring = film.starring.map((item) => item.concat(', '));
   const evaluations = ['Bad', 'Normal', 'Good', 'Very good', 'Awesome'];
-  let evaluation: string = '';
+  let evaluation = '';
   if (film.rating <= 3) {
     evaluation = evaluations[0];
   } else if (film.rating <= 5) {

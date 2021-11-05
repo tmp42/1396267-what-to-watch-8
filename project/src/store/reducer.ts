@@ -24,7 +24,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         filmList,
-        isDataLoaded: true
+        isDataLoaded: true,
       };
     }
     case ActionType.LoadComments: {

@@ -8,7 +8,7 @@ import ButtonShowMore from './button-show-more';
 import {useEffect} from 'react';
 import {resetGenreFilm} from '../../store/action';
 import {Films} from '../../types/films';
-import LoginButton from "../login-button/login-button";
+import LoginButton from '../login-button/login-button';
 
 function MainContent(): JSX.Element {
   const films =  useSelector<State, Films[]>((store) => store.filmList);

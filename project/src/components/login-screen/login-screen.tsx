@@ -1,30 +1,22 @@
 import Logo from '../logo/logo';
 import {useRef, MouseEvent} from 'react';
 import {useDispatch} from 'react-redux';
-import {useApi} from '../../services/api';
-import {loginAction} from "../../store/api-actions";
-import {current} from '@reduxjs/toolkit';
+import {loginAction} from '../../store/api-actions';
 
 function LoginScreen(): JSX.Element {
-
-  const dispatch = useDispatch();
-  const api = useApi();
-
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
+  const dispatch = useDispatch();
+
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      api.get('/login')
-        .then((data) => {
-          // @ts-ignore
-          dispatch(loginAction({login: loginRef.current.value, password: passwordRef.current.value}));
-        })
-        .catch(() => {
 
-          // showErrors
-        });
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(loginAction({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      }));
     }
   };
 

@@ -1,5 +1,5 @@
 import {ThunkActionResult} from '../types/action';
-import {loadComments, loadFilms, requireAuthorization, requireLogout, redirectToRoute, selectFilm} from './action';
+import {loadComments, loadFilms, requireAuthorization, requireLogout, redirectToRoute} from './action';
 import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
 import {Films} from '../types/films';
@@ -23,11 +23,6 @@ export const fetchCommentsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<Comment[]>(APIRoute.Comments);
     dispatch(loadComments(data));
-  };
-
-export const fetchFilmAction = (id: string): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Films>(APIRoute.Film.replace(':id', id));
   };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>

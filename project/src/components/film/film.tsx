@@ -8,7 +8,7 @@ import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {Comments} from '../../types/comments';
-import LoadingScreen from "../loading-screen/loading-screen";
+import LoadingScreen from '../loading-screen/loading-screen';
 import {useApi} from '../../services/api';
 import {APIRoute} from '../../const';
 import LoginButton from '../login-button/login-button';
@@ -53,7 +53,7 @@ function Film(): JSX.Element {
 
           <header className="page-header film-card__head">
             <Logo/>
-           <LoginButton/>
+            <LoginButton/>
           </header>
 
           <div className="film-card__wrap">

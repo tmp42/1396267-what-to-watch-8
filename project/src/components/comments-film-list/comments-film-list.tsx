@@ -24,8 +24,7 @@ function CommentsFilmList({comments}: CommentsFilmList): JSX.Element {
         </div>
         :
         <>
-        </>
-      }
+        </>}
     </>
   );
 }
