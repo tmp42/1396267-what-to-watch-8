@@ -1,22 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {reducer} from './store/reducer';
 import App from './components/app/app';
-import {films} from './mocks/films';
-import {comments} from './mocks/comments';
+import thunk from 'redux-thunk';
+import {createAPI} from './services/api';
+import {requireAuthorization} from './store/action';
+import {fetchFilmsAction, checkAuthAction} from './store/api-actions';
+import {ThunkAppDispatch} from './types/action';
+import {AuthorizationStatus} from './const';
+import {redirect} from './store/middlewares/redirect';
+
+const api = createAPI(
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+);
 
 const store = createStore(
   reducer,
-  composeWithDevTools(),
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
+  ),
 );
+
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
+(store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App films={films} comments={comments}/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

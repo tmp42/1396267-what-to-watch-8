@@ -1,49 +1,59 @@
 import {Link, useParams} from 'react-router-dom';
 import {Films} from '../../types/films';
-import {Comment} from '../../types/comments';
 import Tabs from '../tabs/tabs';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
+import {Comments} from '../../types/comments';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {useApi} from '../../store/api-actions';
+import {APIRoute} from '../../const';
+import LoginButton from '../login-button/login-button';
 
-type AboutFilmProps = {
-  aboutFilm: Films[];
-  comments: Comment[];
-}
-
-function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
+function Film(): JSX.Element {
   const [activeTabs, onChange] = useState(0);
   const id = parseInt(useParams<{ id: string }>().id, 10);
-  const film = aboutFilm.find((x) => x.id === id) as Films;
-  const comment = comments.filter((movie) => movie['id'] === id);
-  const similarMovies = aboutFilm.filter((movie) => movie['genre'] === film.genre && movie['id'] !== film.id);
+  const api = useApi();
+  const [{isLoading, film, comments, similarMovies}, setState] = useState({
+    isLoading: true,
+    film: null as Films | null,
+    comments: [] as Comments[],
+    similarMovies: [] as Films[],
+  });
 
+  useEffect(() => {
+    Promise.all([
+      api.get<Films>(APIRoute.Film.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, film: data,
+      }))),
+      api.get<Comments[]>(APIRoute.Comments.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, comments: data,
+      }))),
+      api.get<Films[]>(APIRoute.SimilarFilm.replace(':id', id.toString())).then(({data}) => setState((state) => ({
+        ...state, similarMovies: data,
+      }))),
+    ]).then(() => setState((state) => ({...state, isLoading: false})));
+  }, []);
+
+  if (isLoading || !film) {
+    return <LoadingScreen/>;
+  }
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name}/>
+            <img src={film.background_image} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
             <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href=" #">Sign out</a>
-              </li>
-            </ul>
+            <LoginButton/>
           </header>
 
           <div className="film-card__wrap">
@@ -76,7 +86,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.previewImage} alt={film.name} width="218" height="327"/>
+              <img src={film.preview_image} alt={film.name} width="218" height="327"/>
             </div>
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
@@ -84,7 +94,7 @@ function Film({aboutFilm, comments}: AboutFilmProps): JSX.Element {
               </nav>
               {(activeTabs === 0) && <FilmInfo film={film}/>}
               {(activeTabs === 1) && <FilmDetails film={film}/>}
-              {(activeTabs === 2) && <FilmReviews comments={comment}/>}
+              {(activeTabs === 2) && <FilmReviews comments={comments}/>}
             </div>
           </div>
         </div>

@@ -1,11 +1,14 @@
-import {ActionType, Actions} from '../types/action';
+import {Actions, ActionType} from '../types/action';
 import {State} from '../types/state';
-import {FIRST_GENRE, FIRST_COUNT_FILM} from '../const';
+import {AuthorizationStatus, FIRST_COUNT_FILM, FIRST_GENRE} from '../const';
 
 const initialState = {
   genre: FIRST_GENRE,
   countFilm: FIRST_COUNT_FILM,
   filmList: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoaded: false,
+  commentsList: [],
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -15,7 +18,26 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.AddFilm:
       return {...state, countFilm: state.countFilm + action.payload};
     case ActionType.ResetGenreFilm:
-      return {...initialState};
+      return {...state, genre: FIRST_GENRE, countFilm: FIRST_COUNT_FILM};
+    case ActionType.LoadFilms: {
+      const {filmList} = action.payload;
+      return {
+        ...state,
+        filmList,
+        isDataLoaded: true,
+      };
+    }
+    case ActionType.LoadComments: {
+      const {commentsList} = action.payload;
+      return {...state, commentsList};
+    }
+    case ActionType.RequireLogout:
+      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
+    case ActionType.RequireAuthorization:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
     default:
       return state;
   }

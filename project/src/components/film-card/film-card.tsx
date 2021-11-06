@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {Films} from '../../types/films';
 import {useState} from 'react';
 import VideoPlayer from '../video-player/video-player';
@@ -8,6 +8,7 @@ type FilmCardProps = {
 }
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
+  const history = useHistory();
   const [isActive, setActiveState] = useState(false);
   const [timeoutHandle, setTimeoutHandleState] = useState<number | null>(null);
 
@@ -25,6 +26,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
 
   return (
     <article
+      onClick={() => history.push(`/films/${film.id}`)}
       onMouseEnter={onMouseEnterFilmHandler}
       onMouseLeave={onMouseLeaveFilmHandler}
       className="small-film-card catalog__films-card"
@@ -33,7 +35,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
         !isActive ?
           <>
             <div className="small-film-card__image">
-              <img src={film.previewImage} alt={film.name} width="280" height="175"/>
+              <img src={film.preview_image} alt={film.name} width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <Link className="small-film-card__link" to={`/films/${film.id}`}>

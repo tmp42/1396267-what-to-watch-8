@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import FilmList from '../film-list/film-list';
-import {Films} from '../../types/films';
 import Logo from '../logo/logo';
 import GenreList from './genres-list';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
@@ -8,12 +7,11 @@ import {State} from '../../types/state';
 import ButtonShowMore from './button-show-more';
 import {useEffect} from 'react';
 import {resetGenreFilm} from '../../store/action';
+import {Films} from '../../types/films';
+import LoginButton from '../login-button/login-button';
 
-type MainFilmProps = {
-  films: Films[];
-}
-
-function MainContent({films}: MainFilmProps): JSX.Element {
+function MainContent(): JSX.Element {
+  const films =  useSelector<State, Films[]>((store) => store.filmList);
   const firstContent = films[0];
   const {selectGenre, countFilm} = useSelector<State, { selectGenre: string, countFilm: number }>((store) => ({
     selectGenre: store.genre,
@@ -26,13 +24,13 @@ function MainContent({films}: MainFilmProps): JSX.Element {
 
   useEffect(() => () => {
     dispatch(resetGenreFilm());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={firstContent.background_image} alt={firstContent.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,22 +38,13 @@ function MainContent({films}: MainFilmProps): JSX.Element {
         <header className="page-header film-card__head">
           <Logo/>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href=" #">Sign out</a>
-            </li>
-          </ul>
+          <LoginButton/>
         </header>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={firstContent.preview_image} alt={firstContent.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
