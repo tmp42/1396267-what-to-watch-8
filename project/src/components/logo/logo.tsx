@@ -4,7 +4,7 @@ type LogoProps = {
   isFooter?: boolean,
 }
 
-function Logo({isFooter}: LogoProps) {
+function Logo({isFooter}: LogoProps): JSX.Element {
   return (
     <div className='logo'>
       <Link className={`logo__link${!isFooter && ' logo__link--light'}`} to="/">

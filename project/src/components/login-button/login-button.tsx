@@ -27,7 +27,7 @@ function LoginButton(): JSX.Element {
         </>}
       <li className="user-block__item">
         {authStatus === AuthorizationStatus.Auth ?
-          <a className="user-block__link" onClick={onClick}>Sign out</a>
+          <p className="user-block__link" onClick={onClick}>Sign out</p>
           :
           <Link className="user-block__link" to="/login/"> Sign in</Link>}
       </li>
