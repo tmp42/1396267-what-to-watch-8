@@ -1,4 +1,4 @@
-import {Films} from '../../types/films';
+import {Film} from '../../types/films';
 import AddReview from '../add-review/add-review';
 import {useParams} from 'react-router-dom';
 import Logo from '../logo/logo';
@@ -7,9 +7,9 @@ import {State} from '../../types/state';
 import LoginButton from '../login-button/login-button';
 
 function ReviewsScreen(): JSX.Element {
-  const reviewsFilm = useSelector<State, Films[]>((store) => store.filmList as Films[]);
+  const reviewsFilm = useSelector<State, Film[]>((store) => store.filmList as Film[]);
   const id = parseInt(useParams<{ id: string }>().id, 10);
-  const film = reviewsFilm.find((x) => x.id === id) as Films;
+  const film = reviewsFilm.find((x) => x.id === id) as Film;
 
   return (
     <section className="film-card film-card--full">

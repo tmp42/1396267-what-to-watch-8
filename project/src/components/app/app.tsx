@@ -2,7 +2,7 @@ import {connect, shallowEqual, useSelector} from 'react-redux';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainContent from '../main-content/main-content';
-import Film from '../film/film';
+import Film from '../film-screen/film-screen';
 import LoginScreen from '../login-screen/login-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';

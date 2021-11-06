@@ -1,5 +1,5 @@
 import {ActionType} from '../types/action';
-import {Films} from '../types/films';
+import {Film} from '../types/films';
 import {AppRoute, AuthorizationStatus} from '../const';
 
 export const changeGenreAction = (genre: string) => ({
@@ -25,7 +25,7 @@ export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
-export const loadFilms = (filmList: Films[]) => ({
+export const loadFilms = (filmList: Film[]) => ({
   type: ActionType.LoadFilms,
   payload: {
     filmList,

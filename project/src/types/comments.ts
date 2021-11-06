@@ -3,7 +3,7 @@ export type UserProfile = {
   name: string;
 };
 
-export type Comments = {
+export type Comment = {
   id: number;
   user: UserProfile;
   rating: number;
