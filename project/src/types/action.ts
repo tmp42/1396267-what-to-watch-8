@@ -7,7 +7,7 @@ import {
 } from 'axios';
 import {State} from './state';
 import {redirectToRoute, requireAuthorization, requireLogout} from '../store/action';
-import {Films} from './films';
+import {Film} from './films';
 
 export enum ActionType {
   ChangeGenre = 'film/ChangeGenre',
@@ -28,7 +28,7 @@ export type ChangeGenre = {
 
 export type SelectFilm = {
   type: ActionType.SelectFilm;
-  payload: Films;
+  payload: Film;
 };
 
 export type AddFilm = {

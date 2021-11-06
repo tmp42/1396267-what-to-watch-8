@@ -1,12 +1,12 @@
 import {AuthorizationStatus} from '../const';
-import {Films} from './films';
-import {Comments} from './comments';
+import {Film} from './films';
+import {Comment} from './comments';
 
 export type State = {
   genre: string,
   countFilm: number,
-  filmList: Films[],
+  filmList: Film[],
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  commentsList: Comments[],
+  commentsList: Comment[],
 };

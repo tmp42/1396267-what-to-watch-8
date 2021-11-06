@@ -2,11 +2,11 @@ import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
-import {Films} from '../../types/films';
+import {Film} from '../../types/films';
 import LoginButton from '../login-button/login-button';
 
 function FavouriteFilmScreen(): JSX.Element {
-  const favouriteFilm =  useSelector<State, Films[]>((store) => store.filmList);
+  const favouriteFilm =  useSelector<State, Film[]>((store) => store.filmList);
   const favouriteMovies = favouriteFilm.filter((movie) => movie['is_favorite']);
 
   return (

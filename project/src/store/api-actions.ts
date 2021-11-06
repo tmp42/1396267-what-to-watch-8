@@ -2,7 +2,7 @@ import {ThunkActionResult} from '../types/action';
 import { loadFilms, requireAuthorization, requireLogout, redirectToRoute} from './action';
 import {saveToken, dropToken, Token} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
-import {Films} from '../types/films';
+import {Film} from '../types/films';
 import {AuthData} from '../types/auth';
 import {useDispatch} from 'react-redux';
 import {useMemo} from 'react';
@@ -10,7 +10,7 @@ import {createAPI} from '../services/api';
 
 export const fetchFilmsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Films[]>(APIRoute.Films);
+    const {data} = await api.get<Film[]>(APIRoute.Films);
     dispatch(loadFilms(data));
   };
 

@@ -1,8 +1,8 @@
-import {Films} from '../../types/films';
+import {Film} from '../../types/films';
 import FilmCardDetails from '../film-card-details/film-card-details';
 
 type FilmDetailsProps = {
-  film: Films
+  film: Film
 }
 
 function FilmDetails({film}: FilmDetailsProps): JSX.Element {

@@ -1,8 +1,8 @@
-import {Comments} from '../../types/comments';
+import {Comment} from '../../types/comments';
 import CommentFilm from '../comment-film/comment-film';
 
 type CommentsFilmListProps = {
-  comments: Comments[]
+  comments: Comment[]
 }
 
 function CommentsFilmList({comments}: CommentsFilmListProps): JSX.Element {

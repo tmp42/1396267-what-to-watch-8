@@ -1,9 +1,9 @@
 import React from 'react';
 import FilmCard from '../film-card/film-card';
-import {Films} from '../../types/films';
+import {Film} from '../../types/films';
 
 type MainFilmProps = {
-  films: Films[];
+  films: Film[];
 }
 
 function FilmList({films}: MainFilmProps): JSX.Element {

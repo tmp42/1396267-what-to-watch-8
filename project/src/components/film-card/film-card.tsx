@@ -1,10 +1,10 @@
 import {Link, useHistory} from 'react-router-dom';
-import {Films} from '../../types/films';
+import {Film} from '../../types/films';
 import {useState} from 'react';
 import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
-  film: Films;
+  film: Film;
 }
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
