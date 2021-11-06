@@ -7,7 +7,7 @@ import {Film} from '../../types/films';
 import {APIRoute} from '../../const';
 import LoadingScreen from '../loading-screen/loading-screen';
 
-function HeaderMainContent() {
+function HeaderMainContent(): JSX.Element {
   const api = useApi();
   const [{promoMovies}, setState] = useState({promoMovies: null as Film | null});
 
@@ -15,7 +15,7 @@ function HeaderMainContent() {
     api.get<Film>(APIRoute.Promo).then(({data}) => setState((state) => ({
       ...state, promoMovies: data,
     })));
-  },[]);
+  }, [api]);
 
   if (!promoMovies) {
     return <LoadingScreen/>;

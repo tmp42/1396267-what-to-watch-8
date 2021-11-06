@@ -1,6 +1,6 @@
 type FilmCardDetailsProps = {
   name: string
-  value: any
+  value: string[] | string | number
 }
 
 function FilmCardDetails({name, value}: FilmCardDetailsProps): JSX.Element {
