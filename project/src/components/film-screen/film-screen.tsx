@@ -36,7 +36,7 @@ function FilmScreen(): JSX.Element {
         ...state, similarMovies: data,
       }))),
     ]).then(() => setState((state) => ({...state, isLoading: false})));
-  }, []);
+  }, [api,id]);
 
   if (isLoading || !film) {
     return <LoadingScreen/>;

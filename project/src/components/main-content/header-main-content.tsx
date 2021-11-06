@@ -15,7 +15,7 @@ function HeaderMainContent() {
     api.get<Film>(APIRoute.Promo).then(({data}) => setState((state) => ({
       ...state, promoMovies: data,
     })));
-  });
+  },[]);
 
   if (!promoMovies) {
     return <LoadingScreen/>;
