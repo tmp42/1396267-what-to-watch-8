@@ -6,7 +6,7 @@ import {logoutAction} from '../../store/api-actions';
 
 function LoginButton(): JSX.Element {
   const dispath = useDispatch();
-  const authStatus = useSelector<State>((store) => store.authorizationStatus);
+  const authStatus = useSelector<State>((store) => store.USER.authorizationStatus);
 
   const onClick = () => {
     dispath(logoutAction());

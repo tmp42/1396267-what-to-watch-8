@@ -1,12 +1,16 @@
 import {AuthorizationStatus} from '../const';
 import {Film} from './films';
-import {Comment} from './comments';
+import {RootState} from '../store/root-reducer';
 
-export type State = {
+export type FilmType = {
   genre: string,
   countFilm: number,
   filmList: Film[],
-  authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  commentsList: Comment[],
 };
+
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus,
+};
+
+export type State = RootState;

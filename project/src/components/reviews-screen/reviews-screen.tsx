@@ -1,13 +1,13 @@
 import {Film} from '../../types/films';
 import AddReview from '../add-review/add-review';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Logo from '../logo/logo';
 import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
 import LoginButton from '../login-button/login-button';
+import {getMovies} from '../../store/film-data/selector';
 
 function ReviewsScreen(): JSX.Element {
-  const reviewsFilm = useSelector<State, Film[]>((store) => store.filmList as Film[]);
+  const reviewsFilm = useSelector(getMovies);
   const id = parseInt(useParams<{ id: string }>().id, 10);
   const film = reviewsFilm.find((x) => x.id === id) as Film;
 
@@ -26,10 +26,10 @@ function ReviewsScreen(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link className="breadcrumbs__link" to={`/films/${film.id}`}>{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href=" #">Add review</a>
+                <Link className="breadcrumbs__link" to={`/films/${film.id}/review`}>Add review</Link>
               </li>
             </ul>
           </nav>

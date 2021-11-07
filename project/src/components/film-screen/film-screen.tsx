@@ -12,6 +12,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {useApi} from '../../store/api-actions';
 import {APIRoute} from '../../const';
 import LoginButton from '../login-button/login-button';
+import Footer from '../footer/footer';
 
 function FilmScreen(): JSX.Element {
   const [activeTabs, onChange] = useState(0);
@@ -105,14 +106,7 @@ function FilmScreen(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
           <FilmList films={similarMovies}/>
         </section>
-
-        <footer className="page-footer">
-          <Logo/>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
 import {changeGenreAction} from '../../store/action';
+import {getCurrentGenre} from '../../store/film-data/selector';
 
 type GenreListItemProps = {
   name: string
@@ -27,7 +27,7 @@ function GenreListItem({name, active, onClick}: GenreListItemProps): JSX.Element
 }
 
 function GenreList(): JSX.Element {
-  const selectGenre = useSelector<State>((store) => store.genre);
+  const selectGenre = useSelector(getCurrentGenre);
   const dispatch = useDispatch();
 
   const onClick = (code: string) => {
