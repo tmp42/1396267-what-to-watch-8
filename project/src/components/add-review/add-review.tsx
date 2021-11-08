@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import RatingStars from '../rating-stars/rating-stars';
 
 function AddReview(): JSX.Element {
@@ -26,4 +26,4 @@ function AddReview(): JSX.Element {
   );
 }
 
-export default AddReview;
+export default memo(AddReview);

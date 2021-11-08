@@ -3,7 +3,8 @@ import {RouteProps} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useSelector} from 'react-redux';
 import {History} from 'history';
-import {State} from '../../types/state';
+import {getAuthorizationStatus} from '../../store/user-data/selector';
+import {memo} from 'react';
 
 type RenderFuncProps = {
   history: History<unknown>;
@@ -16,7 +17,7 @@ type PrivateRouteProps = RouteProps & {
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {exact, path, render} = props;
 
-  const authorizationStatus = useSelector<State>((store) => store.authorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <Route
@@ -31,4 +32,4 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   );
 }
 
-export default PrivateRoute;
+export default memo(PrivateRoute);

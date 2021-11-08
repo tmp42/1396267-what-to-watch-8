@@ -2,6 +2,7 @@ import Logo from '../logo/logo';
 import {useRef, MouseEvent} from 'react';
 import {useDispatch} from 'react-redux';
 import {loginAction} from '../../store/api-actions';
+import Footer from '../footer/footer';
 
 function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -45,14 +46,7 @@ function LoginScreen(): JSX.Element {
           </div>
         </form>
       </div>
-
-      <footer className="page-footer">
-        <Logo isFooter={false}/>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }

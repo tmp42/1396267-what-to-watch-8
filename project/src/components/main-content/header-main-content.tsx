@@ -1,7 +1,7 @@
 import Logo from '../logo/logo';
 import LoginButton from '../login-button/login-button';
 import {Link} from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import {useApi} from '../../store/api-actions';
 import {Film} from '../../types/films';
 import {APIRoute} from '../../const';
@@ -69,4 +69,4 @@ function HeaderMainContent(): JSX.Element {
   );
 }
 
-export default HeaderMainContent;
+export default memo(HeaderMainContent);

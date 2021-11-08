@@ -1,7 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
 import {Film} from '../../types/films';
 import Tabs from '../tabs/tabs';
-import {useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
@@ -12,6 +12,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {useApi} from '../../store/api-actions';
 import {APIRoute} from '../../const';
 import LoginButton from '../login-button/login-button';
+import Footer from '../footer/footer';
 
 function FilmScreen(): JSX.Element {
   const [activeTabs, onChange] = useState(0);
@@ -105,17 +106,10 @@ function FilmScreen(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
           <FilmList films={similarMovies}/>
         </section>
-
-        <footer className="page-footer">
-          <Logo/>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );
 }
 
-export default FilmScreen;
+export default memo(FilmScreen);

@@ -1,12 +1,13 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {State} from '../../types/state';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-data/selector';
+import {memo} from 'react';
 
 function LoginButton(): JSX.Element {
   const dispath = useDispatch();
-  const authStatus = useSelector<State>((store) => store.authorizationStatus);
+  const authStatus = useSelector(getAuthorizationStatus);
 
   const onClick = () => {
     dispath(logoutAction());
@@ -35,4 +36,4 @@ function LoginButton(): JSX.Element {
   );
 }
 
-export default LoginButton;
+export default memo(LoginButton);

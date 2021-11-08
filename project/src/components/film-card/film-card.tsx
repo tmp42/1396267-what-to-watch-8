@@ -1,6 +1,6 @@
 import {Link, useHistory} from 'react-router-dom';
 import {Film} from '../../types/films';
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
@@ -50,4 +50,4 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
   );
 }
 
-export default FilmCard;
+export default memo(FilmCard);

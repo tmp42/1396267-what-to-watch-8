@@ -1,12 +1,13 @@
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import {useSelector} from 'react-redux';
-import {State} from '../../types/state';
-import {Film} from '../../types/films';
 import LoginButton from '../login-button/login-button';
+import Footer from '../footer/footer';
+import {getMovies} from '../../store/film-data/selector';
+import {memo} from 'react';
 
 function FavouriteFilmScreen(): JSX.Element {
-  const favouriteFilm =  useSelector<State, Film[]>((store) => store.filmList);
+  const favouriteFilm = useSelector(getMovies);
   const favouriteMovies = favouriteFilm.filter((movie) => movie['is_favorite']);
 
   return (
@@ -24,16 +25,9 @@ function FavouriteFilmScreen(): JSX.Element {
           <FilmList films={favouriteMovies}/>
         </div>
       </section>
-
-      <footer className="page-footer">
-        <Logo/>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
 
-export default FavouriteFilmScreen;
+export default memo(FavouriteFilmScreen);
