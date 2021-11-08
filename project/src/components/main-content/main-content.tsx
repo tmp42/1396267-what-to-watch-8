@@ -2,7 +2,7 @@ import FilmList from '../film-list/film-list';
 import GenreList from './genres-list';
 import {useDispatch, useSelector} from 'react-redux';
 import ButtonShowMore from './button-show-more';
-import {useEffect} from 'react';
+import {memo, useEffect} from 'react';
 import {resetGenreFilm} from '../../store/action';
 import HeaderMainContent from './header-main-content';
 import Footer from '../footer/footer';
@@ -37,4 +37,4 @@ function MainContent(): JSX.Element {
   );
 }
 
-export default MainContent;
+export default memo(MainContent);

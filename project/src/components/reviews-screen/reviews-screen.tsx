@@ -5,6 +5,7 @@ import Logo from '../logo/logo';
 import {useSelector} from 'react-redux';
 import LoginButton from '../login-button/login-button';
 import {getMovies} from '../../store/film-data/selector';
+import {memo} from 'react';
 
 function ReviewsScreen(): JSX.Element {
   const reviewsFilm = useSelector(getMovies);
@@ -45,4 +46,4 @@ function ReviewsScreen(): JSX.Element {
   );
 }
 
-export default ReviewsScreen;
+export default memo(ReviewsScreen);

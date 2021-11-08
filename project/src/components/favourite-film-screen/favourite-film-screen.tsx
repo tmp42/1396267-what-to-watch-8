@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import LoginButton from '../login-button/login-button';
 import Footer from '../footer/footer';
 import {getMovies} from '../../store/film-data/selector';
+import {memo} from 'react';
 
 function FavouriteFilmScreen(): JSX.Element {
   const favouriteFilm = useSelector(getMovies);
@@ -29,4 +30,4 @@ function FavouriteFilmScreen(): JSX.Element {
   );
 }
 
-export default FavouriteFilmScreen;
+export default memo(FavouriteFilmScreen);

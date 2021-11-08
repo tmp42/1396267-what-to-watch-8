@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-data/selector';
+import {memo} from 'react';
 
 function LoginButton(): JSX.Element {
   const dispath = useDispatch();
@@ -35,4 +36,4 @@ function LoginButton(): JSX.Element {
   );
 }
 
-export default LoginButton;
+export default memo(LoginButton);

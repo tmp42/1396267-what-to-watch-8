@@ -1,7 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
 import {Film} from '../../types/films';
 import Tabs from '../tabs/tabs';
-import {useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import FilmInfo from '../film-info/film-info';
 import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
@@ -112,4 +112,4 @@ function FilmScreen(): JSX.Element {
   );
 }
 
-export default FilmScreen;
+export default memo(FilmScreen);

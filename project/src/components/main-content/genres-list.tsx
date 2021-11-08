@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {changeGenreAction} from '../../store/action';
 import {getCurrentGenre} from '../../store/film-data/selector';
+import {memo} from 'react';
 
 type GenreListItemProps = {
   name: string
@@ -43,4 +44,4 @@ function GenreList(): JSX.Element {
   );
 }
 
-export default GenreList;
+export default memo(GenreList);

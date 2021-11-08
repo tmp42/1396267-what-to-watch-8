@@ -4,6 +4,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {useSelector} from 'react-redux';
 import {History} from 'history';
 import {getAuthorizationStatus} from '../../store/user-data/selector';
+import {memo} from 'react';
 
 type RenderFuncProps = {
   history: History<unknown>;
@@ -31,4 +32,4 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   );
 }
 
-export default PrivateRoute;
+export default memo(PrivateRoute);
