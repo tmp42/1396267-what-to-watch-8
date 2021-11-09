@@ -10,7 +10,7 @@ const PERCENT_100 = 100;
 
 function PlayerScreen(): JSX.Element {
   const api = useApi();
-  const [videoFilm, setState] = useState(null as unknown as Film);
+  const [{videoFilm}, setState] = useState({videoFilm: null as Film | null});
   const {id} = useParams<{ id: string }>();
   const history = useHistory();
 
@@ -98,9 +98,9 @@ function PlayerScreen(): JSX.Element {
   return (
     <div className="player">
 
-      <video preload='metadata' src={videoFilm.video_link} className="player__video" poster={videoFilm.preview_image} ref={videoRef}
-        onTimeUpdate={videoProgressHandler}
-        onLoadedData={videoLoadedDataHandler}
+      <video preload='metadata' src={videoFilm?.video_link} className="player__video" poster={videoFilm?.preview_image} ref={videoRef}
+             onTimeUpdate={videoProgressHandler}
+             onLoadedData={videoLoadedDataHandler}
       />
 
       <button type="button" className="player__exit" onClick={() => history.go(-1)}>Exit</button>
