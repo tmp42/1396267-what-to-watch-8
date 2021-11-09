@@ -13,7 +13,6 @@ import browserHistory from '../../browser-history';
 import PrivateRoute from '../private-route/private-route';
 import {getAuthorizationStatus} from '../../store/user-data/selector';
 import {getIsLoaded} from '../../store/film-data/selector';
-import {memo} from 'react';
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
@@ -54,4 +53,4 @@ function App(): JSX.Element {
   );
 }
 
-export default memo(App);
+export default App;

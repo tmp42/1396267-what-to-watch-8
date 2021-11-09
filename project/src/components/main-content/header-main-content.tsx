@@ -1,11 +1,11 @@
 import Logo from '../logo/logo';
 import LoginButton from '../login-button/login-button';
-import {Link} from 'react-router-dom';
 import {memo, useEffect, useState} from 'react';
 import {useApi} from '../../store/api-actions';
 import {Film} from '../../types/films';
 import {APIRoute} from '../../const';
 import LoadingScreen from '../loading-screen/loading-screen';
+import FilmButton from '../film-button/film-button';
 
 function HeaderMainContent(): JSX.Element {
   const api = useApi();
@@ -47,21 +47,7 @@ function HeaderMainContent(): JSX.Element {
               <span className="film-card__genre">{promoMovies.genre}</span>
               <span className="film-card__year">{promoMovies.released}</span>
             </p>
-
-            <div className="film-card__buttons">
-              <Link className="btn btn--play film-card__button" to={`/player/${promoMovies.id}`}>
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
-                </svg>
-                <span>Play</span>
-              </Link>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
-            </div>
+            <FilmButton idFilm={promoMovies?.id} isFavourite={promoMovies?.is_favorite} isDetailed/>
           </div>
         </div>
       </div>

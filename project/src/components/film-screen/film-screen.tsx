@@ -1,4 +1,3 @@
-import {Link, useParams} from 'react-router-dom';
 import {Film} from '../../types/films';
 import Tabs from '../tabs/tabs';
 import {memo, useEffect, useState} from 'react';
@@ -13,6 +12,8 @@ import {useApi} from '../../store/api-actions';
 import {APIRoute} from '../../const';
 import LoginButton from '../login-button/login-button';
 import Footer from '../footer/footer';
+import FilmButton from '../film-button/film-button';
+import {useParams} from 'react-router-dom';
 
 function FilmScreen(): JSX.Element {
   const [activeTabs, onChange] = useState(0);
@@ -37,7 +38,7 @@ function FilmScreen(): JSX.Element {
         ...state, similarMovies: data,
       }))),
     ]).then(() => setState((state) => ({...state, isLoading: false})));
-  }, [api,id]);
+  }, [api, id]);
 
   if (isLoading || !film) {
     return <LoadingScreen/>;
@@ -64,22 +65,7 @@ function FilmScreen(): JSX.Element {
                 <span className="film-card__genre">{film.genre}</span>
                 <span className="film-card__year">{film.released}</span>
               </p>
-
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <Link className="btn film-card__button" to={`/films/${film.id}/review`}>Add review</Link>
-              </div>
+              <FilmButton idFilm={id} isFavourite={film?.is_favorite}/>
             </div>
           </div>
         </div>
