@@ -33,14 +33,12 @@ function PlayerScreen(): JSX.Element {
     }
   };
 
-  // Эффект получения фильма
   useEffect(() => {
     api.get<Film>(APIRoute.Film.replace(':id', id.toString())).then(({data}) => setState((state) => ({
       ...state, videoFilm: data,
     })));
   }, [api, id]);
 
-  // Эффект, который записывает в стейт длительность фильма (setDuration) и оставшееся до конца видео время (setElapsedTime)
   useEffect(() => {
     if (!isReady || !videoElement) {
       return;
@@ -51,7 +49,6 @@ function PlayerScreen(): JSX.Element {
     setRemainingTime(videoDuration);
   }, [isReady, videoElement]);
 
-  // Эффект, который запускает и останавливает проигрывание видео
   useEffect(() => {
     if (!videoElement) {
       return;
@@ -65,7 +62,6 @@ function PlayerScreen(): JSX.Element {
     videoElement.pause();
   }, [isPlay, videoElement]);
 
-  // Оставшееся время до конца видео или надпись, если данные видео еще не загрузились
   const RemainingMovieTime = isReady ? formatRemainingTime(remainingTime) : 'Loading...';
 
   const playButtonClickHandler = () => {
@@ -102,7 +98,10 @@ function PlayerScreen(): JSX.Element {
   return (
     <div className="player">
 
-      <video preload='metadata' src={videoFilm.video_link} className="player__video" poster={videoFilm.preview_image} ref={videoRef} onTimeUpdate={videoProgressHandler} onLoadedData={videoLoadedDataHandler}/>
+      <video preload='metadata' src={videoFilm.video_link} className="player__video" poster={videoFilm.preview_image} ref={videoRef}
+        onTimeUpdate={videoProgressHandler}
+        onLoadedData={videoLoadedDataHandler}
+      />
 
       <button type="button" className="player__exit" onClick={() => history.go(-1)}>Exit</button>
 
