@@ -12,10 +12,10 @@ type FilmButtonProps = {
 
 function FilmButton({idFilm, isFavourite, isDetailed}: FilmButtonProps): JSX.Element {
   const api = useApi();
-  let [activeFavourite, setActiveFavourite] = React.useState(isFavourite);
+  const [activeFavourite, setActiveFavourite] = React.useState(isFavourite);
   const onclick = () => {
     api.post<Film[]>(APIRoute.ChangeFavouriteFilm.replace(':id', idFilm.toString()).replace(':status', Number(!activeFavourite).toString()))
-      .then(() => setActiveFavourite(activeFavourite = !activeFavourite));
+      .then(() => setActiveFavourite(!activeFavourite));
   };
 
   return (

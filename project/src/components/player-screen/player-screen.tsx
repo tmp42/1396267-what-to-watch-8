@@ -99,8 +99,8 @@ function PlayerScreen(): JSX.Element {
     <div className="player">
 
       <video preload='metadata' src={videoFilm?.video_link} className="player__video" poster={videoFilm?.preview_image} ref={videoRef}
-             onTimeUpdate={videoProgressHandler}
-             onLoadedData={videoLoadedDataHandler}
+        onTimeUpdate={videoProgressHandler}
+        onLoadedData={videoLoadedDataHandler}
       />
 
       <button type="button" className="player__exit" onClick={() => history.go(-1)}>Exit</button>
