@@ -1,8 +1,10 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Film} from '../../types/films';
-import {APIRoute} from '../../const';
+import {APIRoute, AuthorizationStatus} from '../../const';
 import {useApi} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user-data/selector';
+import {useSelector} from 'react-redux';
 
 type FilmButtonProps = {
   idFilm: number,
@@ -12,11 +14,18 @@ type FilmButtonProps = {
 
 function FilmButton({idFilm, isFavourite, isDetailed}: FilmButtonProps): JSX.Element {
   const api = useApi();
-  const [activeFavourite, setActiveFavourite] = React.useState(isFavourite);
-  const onclick = () => {
+  const [activeFavourite, setActiveFavourite] = useState(isFavourite);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const onClick = () => {
     api.post<Film[]>(APIRoute.ChangeFavouriteFilm.replace(':id', idFilm.toString()).replace(':status', Number(!activeFavourite).toString()))
       .then(() => setActiveFavourite(!activeFavourite));
   };
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
+      setActiveFavourite(false);
+    }
+  }, [authorizationStatus]);
 
   return (
     <div className="film-card__buttons">
@@ -26,10 +35,10 @@ function FilmButton({idFilm, isFavourite, isDetailed}: FilmButtonProps): JSX.Ele
         </svg>
         <span>Play</span>
       </Link>
-      <button className="btn btn--list film-card__button" type="button" onClick={onclick}>
+      <button className="btn btn--list film-card__button" type="button" onClick={onClick}>
         {activeFavourite ?
-          <svg width="19" height="20" viewBox="0 0 19 20" style={{fill: '#ffffff'}}>
-            <path d="M10.5,14.7928932 L17.1464466,8.14644661 C17.3417088,7.95118446 17.6582912,7.95118446 17.8535534,8.14644661 C18.0488155,8.34170876 18.0488155,8.65829124 17.8535534,8.85355339 L10.8535534,15.8535534 C10.6582912,16.0488155 10.3417088,16.0488155 10.1464466,15.8535534 L7.14644661,12.8535534 C6.95118446,12.6582912 6.95118446,12.3417088 7.14644661,12.1464466 C7.34170876,11.9511845 7.65829124,11.9511845 7.85355339,12.1464466 L10.5,14.7928932 Z"/>
+          <svg viewBox="0 0 19 20" width="19" height="20">
+            <use xlinkHref="#checkmark"/>
           </svg>
           :
           <svg viewBox="0 0 19 20" width="19" height="20">

@@ -10,12 +10,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 function FavouriteFilmScreen(): JSX.Element {
   const api = useApi();
-  const [{favouriteMovies}, setState] = useState({favouriteMovies: null as Film[] | null});
+  const [favouriteMovies, setState] = useState<Film[] | null>(null);
 
   useEffect(() => {
-    api.get<Film[]>(APIRoute.FavouriteFilm).then(({data}) => setState((state) => ({
-      ...state, favouriteMovies: data,
-    })));
+    api.get<Film[]>(APIRoute.FavouriteFilm).then((data) => setState(data.data));
   }, [api]);
 
   if (!favouriteMovies) {

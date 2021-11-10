@@ -9,12 +9,10 @@ import FilmButton from '../film-button/film-button';
 
 function HeaderMainContent(): JSX.Element {
   const api = useApi();
-  const [{promoMovies}, setState] = useState({promoMovies: null as Film | null});
+  const [promoMovies, setState] = useState<Film | null>(null);
 
   useEffect(() => {
-    api.get<Film>(APIRoute.Promo).then(({data}) => setState((state) => ({
-      ...state, promoMovies: data,
-    })));
+    api.get<Film>(APIRoute.Promo).then((data) => setState(data.data));
   }, [api]);
 
   if (!promoMovies) {

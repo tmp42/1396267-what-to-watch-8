@@ -5,38 +5,26 @@ import {formatRemainingTime} from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {Film} from '../../types/films';
 import {APIRoute} from '../../const';
-
-const PERCENT_100 = 100;
+import PlayButton from './play-button';
 
 function PlayerScreen(): JSX.Element {
   const api = useApi();
-  const [{videoFilm}, setState] = useState({videoFilm: null as Film | null});
+  const [videoFilm, setVideoFilm] = useState<Film | null>(null);
   const {id} = useParams<{ id: string }>();
   const history = useHistory();
 
   const [currentTime, setCurrentTime] = useState(0);
   const [isReady, setReady] = useState(false);
   const [isPlay, setPlay] = useState(false);
-  const [duration, setDuration] = useState(0);
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [{duration, remainingTime}, setDuration] = useState({duration: 0, remainingTime: 0});
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const {current: videoElement} = videoRef;
   const progressBarRef = useRef<HTMLProgressElement>(null);
   const {current: progressBarElement} = progressBarRef;
 
-  const play = async (video: HTMLVideoElement) => {
-    try {
-      await video.play();
-    } catch {
-      setPlay(false);
-    }
-  };
-
   useEffect(() => {
-    api.get<Film>(APIRoute.Film.replace(':id', id.toString())).then(({data}) => setState((state) => ({
-      ...state, videoFilm: data,
-    })));
+    api.get<Film>(APIRoute.Film.replace(':id', id.toString())).then((data) => setVideoFilm(data.data));
   }, [api, id]);
 
   useEffect(() => {
@@ -45,11 +33,20 @@ function PlayerScreen(): JSX.Element {
     }
 
     const videoDuration = Math.round(videoElement.duration);
-    setDuration(videoDuration);
-    setRemainingTime(videoDuration);
+    setDuration((state) => ({
+      ...state, duration: videoDuration, remainingTime: videoDuration,
+    }));
   }, [isReady, videoElement]);
 
   useEffect(() => {
+    const play = async (video: HTMLVideoElement) => {
+      try {
+        await video.play();
+      } catch {
+        setPlay(false);
+      }
+    };
+
     if (!videoElement) {
       return;
     }
@@ -74,10 +71,12 @@ function PlayerScreen(): JSX.Element {
     }
 
     const currentVideoTime = videoElement.currentTime;
-    const currentPercentage = currentVideoTime / duration * PERCENT_100;
-    const currentRemainingTime = Math.round(duration * (PERCENT_100 - currentPercentage) / PERCENT_100);
+    const currentPercentage = currentVideoTime / duration * 100;
+    const currentRemainingTime = Math.round(duration * (100 - currentPercentage) / 100);
 
-    setRemainingTime(currentRemainingTime);
+    setDuration((state) => ({
+      ...state, remainingTime: currentRemainingTime,
+    }));
     setCurrentTime(currentPercentage);
     progressBarElement.value = currentVideoTime;
   };
@@ -92,13 +91,12 @@ function PlayerScreen(): JSX.Element {
     setReady(true);
   };
 
-  if (!isReady && !videoFilm) {
-    return <LoadingScreen/>;
-  }
   return (
     <div className="player">
 
-      <video preload='metadata' src={videoFilm?.video_link} className="player__video" poster={videoFilm?.preview_image} ref={videoRef}
+      {!isReady && <LoadingScreen/>}
+
+      <video preload="metadata" src={videoFilm?.video_link} className="player__video" poster={videoFilm?.preview_image} ref={videoRef}
         onTimeUpdate={videoProgressHandler}
         onLoadedData={videoLoadedDataHandler}
       />
@@ -115,20 +113,7 @@ function PlayerScreen(): JSX.Element {
         </div>
 
         <div className="player__controls-row">
-          {!isPlay ?
-            <button type="button" className="player__play" disabled={!isReady} onClick={playButtonClickHandler}>
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"/>
-              </svg>
-              <span>Play</span>
-            </button>
-            :
-            <button type="button" className="player__play" disabled={!isReady} onClick={playButtonClickHandler}>
-              <svg viewBox="0 0 14 21" width="14" height="21">
-                <use xlinkHref="#pause"/>
-              </svg>
-              <span>Pause</span>
-            </button>}
+          <PlayButton isPlay={isPlay} isReady={isReady} playButtonClickHandler={playButtonClickHandler}/>
 
           <button type="button" className="player__full-screen" disabled={!isReady} onClick={fullscreenButtonClickHandler}>
             <svg viewBox="0 0 27 27" width="27" height="27">
