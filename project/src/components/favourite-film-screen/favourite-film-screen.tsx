@@ -1,14 +1,24 @@
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
-import {useSelector} from 'react-redux';
 import LoginButton from '../login-button/login-button';
 import Footer from '../footer/footer';
-import {getMovies} from '../../store/film-data/selector';
-import {memo} from 'react';
+import {memo, useEffect, useState} from 'react';
+import {useApi} from '../../store/api-actions';
+import {Film} from '../../types/films';
+import {APIRoute} from '../../const';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function FavouriteFilmScreen(): JSX.Element {
-  const favouriteFilm = useSelector(getMovies);
-  const favouriteMovies = favouriteFilm.filter((movie) => movie['is_favorite']);
+  const api = useApi();
+  const [favouriteMovies, setState] = useState<Film[] | null>(null);
+
+  useEffect(() => {
+    api.get<Film[]>(APIRoute.FavouriteFilm).then((data) => setState(data.data));
+  }, [api]);
+
+  if (!favouriteMovies) {
+    return <LoadingScreen/>;
+  }
 
   return (
     <div className="user-page">
@@ -20,10 +30,7 @@ function FavouriteFilmScreen(): JSX.Element {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <div className="catalog__films-list">
-          <FilmList films={favouriteMovies}/>
-        </div>
+        <FilmList films={favouriteMovies}/>
       </section>
       <Footer/>
     </div>
