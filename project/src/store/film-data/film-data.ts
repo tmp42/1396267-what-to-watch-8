@@ -4,7 +4,7 @@ import {changeAddFilm, changeGenreAction, loadFilms, resetGenreFilm} from '../ac
 import {Film} from '../../types/films';
 import {FilmType} from '../../types/state';
 
-const initialState: FilmType = {
+export const initialState: FilmType = {
   genre: FIRST_GENRE,
   countFilm: FIRST_COUNT_FILM,
   filmList: [] as unknown as Film[],

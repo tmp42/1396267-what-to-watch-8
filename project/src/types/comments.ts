@@ -8,5 +8,5 @@ export type Comment = {
   user: UserProfile;
   rating: number;
   comment: string;
-  date: string;
+  date: Date;
 };
