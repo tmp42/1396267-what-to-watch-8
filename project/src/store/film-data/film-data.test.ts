@@ -8,7 +8,7 @@ const mockFilms = createMockFilms();
 
 describe('Reducer: gameProcess', () => {
   it('without additional parameters should return initial state', () => {
-    expect(filmProcess(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(filmProcess(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual(initialState);
   });
 
@@ -19,8 +19,9 @@ describe('Reducer: gameProcess', () => {
       filmList: mockFilms,
       isDataLoaded: false,
     };
-    expect(filmProcess(state, changeGenreAction(mockFilms[0].genre)))
-      .toEqual({countFilm: 8, filmList: mockFilms, genre: mockFilms[0].genre, isDataLoaded: false});
+    const newGenre = mockFilms[0].genre;
+    expect(filmProcess(state, changeGenreAction(newGenre)).genre)
+      .toEqual(newGenre);
   });
 
   it('should add film', () => {
@@ -30,8 +31,8 @@ describe('Reducer: gameProcess', () => {
       filmList: mockFilms,
       isDataLoaded: false,
     };
-    expect(filmProcess(state, changeAddFilm(8)))
-      .toEqual({countFilm: 16, filmList: mockFilms, genre: mockFilms[0].genre, isDataLoaded: false});
+    expect(filmProcess(state, changeAddFilm(8)).countFilm)
+      .toEqual(16);
   });
   it('should reset film', () => {
     const state = {

@@ -20,7 +20,7 @@ describe('Reducer: user', () => {
   });
 
   it('should update authorizationStatus to "NO_AUTH"', () => {
-    const state = {authorizationStatus: AuthorizationStatus.NoAuth};
+    const state = {authorizationStatus: AuthorizationStatus.Auth};
     const requiredAuthorizationAction = {
       type: ActionType.RequireAuthorization,
       payload: AuthorizationStatus.NoAuth,

@@ -40,20 +40,10 @@ describe('Application Routing', () => {
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
   });
 
-  it('should render "My list" when user navigate to "/mylist"', () => {
-    history.push(AppRoute.MyList);
-    render(fakeApp);
-
-    expect(screen.getByText(/My list/i)).toBeInTheDocument();
-    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
-  });
-
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');
     render(fakeApp);
 
-    expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
     expect(screen.getByText(/404. Page not found/i)).toBeInTheDocument();
-    expect(screen.getByText(/Вернуться на главную/i)).toBeInTheDocument();
   });
 });

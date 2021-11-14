@@ -4,14 +4,7 @@ function LoadingScreen(): JSX.Element {
       <h3 hidden>Loading screen</h3>
       <div className='spinner'>
         <div className='block'>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
-          <div className='item'></div>
+          {Array(8).fill(null).map(() => <div className="item" key={Math.random()}/>)}
         </div>
       </div>
     </>
