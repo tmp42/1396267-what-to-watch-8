@@ -1,5 +1,6 @@
 import {Film} from '../../types/films';
 import FilmCardDetails from '../film-card-details/film-card-details';
+import {formatRuntime} from '../../utils/utils';
 
 type FilmDetailsProps = {
   film: Film
@@ -16,7 +17,7 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
       </div>
 
       <div className="film-card__text-col">
-        <FilmCardDetails name={'Run Time'} value={film.run_time}/>
+        <FilmCardDetails name={'Run Time'} value={formatRuntime(film.run_time)}/>
         <FilmCardDetails name={'Genre'} value={film.genre}/>
         <FilmCardDetails name={'Released'} value={film.released}/>
       </div>

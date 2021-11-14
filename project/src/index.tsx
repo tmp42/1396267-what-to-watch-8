@@ -9,6 +9,10 @@ import {AuthorizationStatus} from './const';
 import {redirect} from './store/middlewares/redirect';
 import {rootReducer} from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './browser-history';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
@@ -30,7 +34,10 @@ store.dispatch(fetchFilmsAction());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <ToastContainer />
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
