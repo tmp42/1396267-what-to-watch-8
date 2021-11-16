@@ -11,7 +11,7 @@ const mockStore = configureMockStore();
 const mockFilms = createMockFilms();
 
 const store = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.Auth},
+  USER: {authorizationStatus: AuthorizationStatus.NoAuth},
   FILM: {isDataLoaded: true, filmList: mockFilms, genre: 'All genres', countFilm: 8},
 });
 
