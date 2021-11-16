@@ -46,7 +46,7 @@ function FilmButton({idFilm, isFavourite, isDetailed}: FilmButtonProps): JSX.Ele
           </svg>}
         <span>My list</span>
       </button>
-      {!isDetailed ?
+      {!isDetailed && authorizationStatus === AuthorizationStatus.Auth ?
         <Link className="btn film-card__button" to={`/films/${idFilm}/review`}>Add review</Link>
         :
         <>

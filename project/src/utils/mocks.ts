@@ -1,5 +1,6 @@
 import {datatype, date, internet, lorem, name} from 'faker';
 import {Film} from '../types/films';
+import {Comment} from '../types/comments';
 
 const createFullName = () => `${name.firstName()} ${name.lastName()}`;
 
@@ -39,4 +40,30 @@ export const createMockFilms = (): Film[] => {
   });
   const mockFilms = new Array(amount).fill(null).map(() => createMockFilm());
   return mockFilms;
+};
+
+export const createMockComment = (): Comment => {
+  const actorsAmount = datatype.number({
+    min: 1,
+    max: 10,
+  });
+  return {
+    id: datatype.number(),
+    user: {
+      id: datatype.number(),
+      name: lorem.words(),
+    },
+    rating: actorsAmount,
+    comment: lorem.paragraph(),
+    date: date.past(),
+  };
+};
+
+export const createMockComments = (): Comment[] => {
+  const amount = datatype.number({
+    min: 10,
+    max: 30,
+  });
+  const mockComments = new Array(amount).fill(null).map(() => createMockComment());
+  return mockComments;
 };

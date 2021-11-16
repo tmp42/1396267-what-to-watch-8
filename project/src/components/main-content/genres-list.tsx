@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {changeGenreAction} from '../../store/action';
-import {getCurrentGenre} from '../../store/film-data/selector';
+import {getCurrentGenre, getMovies} from '../../store/film-data/selector';
 import {memo} from 'react';
 
 type GenreListItemProps = {
@@ -8,15 +8,6 @@ type GenreListItemProps = {
   active: boolean
   onClick: () => void
 }
-
-const listGenre = [{name: 'All genres'},
-  {name: 'Adventure'},
-  {name: 'Crime'},
-  {name: 'Action'},
-  {name: 'Comedy'},
-  {name: 'Drama'},
-  {name: 'Fantasy'},
-  {name: 'Thriller'}];
 
 
 function GenreListItem({name, active, onClick}: GenreListItemProps): JSX.Element {
@@ -31,14 +22,19 @@ function GenreList(): JSX.Element {
   const selectGenre = useSelector(getCurrentGenre);
   const dispatch = useDispatch();
 
+  const films = useSelector(getMovies);
+  const listGenre = films.map((film) => film.genre);
+  const uniqeFilmsGenres = [...new Set(listGenre)];
+  uniqeFilmsGenres.unshift('All genres');
+
   const onClick = (code: string) => {
     dispatch(changeGenreAction(code));
   };
 
   return (
     <ul className="catalog__genres-list">
-      {listGenre.map((genre) => (
-        <GenreListItem key={Math.random()} name={genre.name} active={genre.name === selectGenre} onClick={() => onClick(genre.name)}/>
+      {uniqeFilmsGenres.map((genre) => (
+        <GenreListItem key={Math.random()} name={genre} active={genre === selectGenre} onClick={() => onClick(genre)}/>
       ))}
     </ul>
   );
