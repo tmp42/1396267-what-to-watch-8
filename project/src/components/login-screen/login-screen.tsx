@@ -35,7 +35,7 @@ function LoginScreen(): JSX.Element {
     }
   };
 
-  function onEmailChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleOnEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setIsError((state) => ({
       ...state, isEmailError: false,
     }));
@@ -48,7 +48,7 @@ function LoginScreen(): JSX.Element {
     }
   }
 
-  function onPasswordChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleOnPasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setIsError((state) => ({
       ...state, isPasswordError: false,
     }));
@@ -73,11 +73,11 @@ function LoginScreen(): JSX.Element {
         <form className="sign-in__form" action="">
           <div className="sign-in__fields">
             <div className={`sign-in__field ${isEmailError ? 'sign-in__field--error' : ' '}`}>
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef} onChange={onEmailChange}/>
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef} onChange={handleOnEmailChange}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className={`sign-in__field ${isPasswordError ? 'sign-in__field--error' : ' '}`}>
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef} onChange={onPasswordChange}/>
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef} onChange={handleOnPasswordChange}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
