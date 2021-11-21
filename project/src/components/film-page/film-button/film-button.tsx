@@ -17,7 +17,7 @@ function FilmButton({idFilm, isFavourite, isDetailed}: FilmButtonProps): JSX.Ele
   const [activeFavourite, setActiveFavourite] = useState(isFavourite);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const onClick = () => {
-    api.post<Film>(APIRoute.ChangeFavouriteFilm.replace(':id', idFilm.toString()).replace(':status', Number(!activeFavourite).toString()))
+    api.post<Film>(APIRoute.ChangeFavoriteFilm.replace(':id', idFilm.toString()).replace(':status', Number(!activeFavourite).toString()))
       .then((data) => setActiveFavourite(data.data.is_favorite));
   };
 

@@ -3,13 +3,13 @@ import {filmProcess} from './film-data/film-data';
 import {userProcess} from './user-data/user-data';
 
 export enum NameSpace {
-  data = 'FILM',
-  user = 'USER',
+  Data = 'FILM',
+  User = 'USER',
 }
 
 export const rootReducer = combineReducers({
-  [NameSpace.data]: filmProcess,
-  [NameSpace.user]: userProcess,
+  [NameSpace.Data]: filmProcess,
+  [NameSpace.User]: userProcess,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

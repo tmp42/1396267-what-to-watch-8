@@ -113,7 +113,7 @@ function PlayerScreen(): JSX.Element {
         </div>
 
         <div className="player__controls-row">
-          <PlayButton isPlay={isPlay} isReady={isReady} playButtonClickHandler={playButtonClickHandler}/>
+          <PlayButton isPlay={isPlay} isReady={isReady} onPlayButtonClickHandler={playButtonClickHandler}/>
 
           <button type="button" className="player__full-screen" disabled={!isReady} onClick={fullscreenButtonClickHandler}>
             <svg viewBox="0 0 27 27" width="27" height="27">

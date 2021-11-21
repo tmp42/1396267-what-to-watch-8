@@ -7,7 +7,7 @@ import {getAuthorizationStatus} from '../../../store/user-data/selector';
 import {AuthorizationStatus} from '../../../const';
 import {useHistory} from 'react-router-dom';
 
-export type FieldProps = {
+type FieldProps = {
   hasError: boolean;
   type: string;
   onChange: (value: string) => void;
@@ -26,11 +26,11 @@ function Field({hasError, onChange, type, value, name}: FieldProps) {
   );
 }
 
-export const validateEmail = (email: string): boolean => email.length > 0
+const validateEmail = (email: string): boolean => email.length > 0
   && /.+?@.+?\..+/.test(email);
 
 
-export const validatePassword = (password: string): boolean => password.length > 2
+const validatePassword = (password: string): boolean => password.length > 2
   && /[a-z]+?/i.test(password)
   && /\d+?/.test(password);
 

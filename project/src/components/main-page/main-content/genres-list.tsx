@@ -24,8 +24,8 @@ function GenreList(): JSX.Element {
 
   const films = useSelector(getMovies);
   const listGenre = films.map((film) => film.genre);
-  const uniqeFilmsGenres = [...new Set(listGenre)];
-  uniqeFilmsGenres.unshift('All genres');
+  const uniqueFilmsGenres = [...new Set(listGenre)];
+  uniqueFilmsGenres.unshift('All genres');
 
   const onClick = (code: string) => {
     dispatch(changeGenreAction(code));
@@ -33,7 +33,7 @@ function GenreList(): JSX.Element {
 
   return (
     <ul className="catalog__genres-list">
-      {uniqeFilmsGenres.map((genre) => (
+      {uniqueFilmsGenres.map((genre) => (
         <GenreListItem key={Math.random()} name={genre} active={genre === selectGenre} onClick={() => onClick(genre)}/>
       ))}
     </ul>

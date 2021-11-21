@@ -3,13 +3,13 @@ import {MouseEventHandler} from 'react';
 type PlayButtonProps = {
   isPlay: boolean,
   isReady: boolean,
-  playButtonClickHandler: MouseEventHandler<HTMLButtonElement>,
+  onPlayButtonClickHandler: MouseEventHandler<HTMLButtonElement>,
 }
 
-function PlayButton({isPlay, isReady, playButtonClickHandler}: PlayButtonProps): JSX.Element {
+function PlayButton({isPlay, isReady, onPlayButtonClickHandler}: PlayButtonProps): JSX.Element {
 
   return (
-    <button type="button" className="player__play" disabled={!isReady} onClick={playButtonClickHandler}>
+    <button type="button" className="player__play" disabled={!isReady} onClick={onPlayButtonClickHandler}>
       {!isPlay ?
         <>
           <svg viewBox="0 0 19 19" width="19" height="19">
