@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import App from './components/app/app';
+import App from './components/main-page/app/app';
 import {createAPI} from './services/api';
 import {requireAuthorization} from './store/action';
 import {fetchFilmsAction, checkAuthAction} from './store/api-actions';
